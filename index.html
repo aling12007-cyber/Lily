@@ -3,317 +3,543 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lin Yuling - Resume</title>
+    <title>Lin Yuling - Interactive Resume</title>
     <style>
         :root {
-            --primary-color: #5b799e;
-            --bg-gradient: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
-            --glass-bg: rgba(255, 255, 255, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.3);
-            --text-dark: #333333;
-            --text-light: #666666;
+            --primary-accent: #8b5cf6;
+            --secondary-accent: #ec4899;
+            --blue-accent: #3b82f6;
+            --text-main: #1f2937;
+            --text-muted: #4b5563;
+            --glass-bg: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --card-shadow: 0 20px 40px rgba(31, 38, 135, 0.08);
         }
+
+        * { box-sizing: border-box; }
 
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
-            background: var(--bg-gradient);
-            background-attachment: fixed;
-            color: var(--text-dark);
-            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f3f0ff;
+            color: var(--text-main);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Ambient Dreamy Background Animation */
+        .aurora-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            background: linear-gradient(125deg, #eef2ff 0%, #fce7f3 50%, #e0e7ff 100%);
+        }
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            animation: float 18s infinite alternate ease-in-out;
+        }
+        .orb-1 { width: 400px; height: 400px; background: #c084fc; top: -100px; left: -100px; }
+        .orb-2 { width: 500px; height: 500px; background: #f472b6; bottom: -150px; right: -100px; animation-delay: -5s; }
+        .orb-3 { width: 350px; height: 350px; background: #60a5fa; top: 40%; left: 30%; animation-delay: -10s; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(60px, 80px) scale(1.15); }
         }
 
         .container {
-            max-width: 900px;
+            max-width: 960px;
             margin: 40px auto;
-            padding: 40px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+            padding: 0 20px 60px;
         }
 
         /* Language Switcher */
-        .lang-switch {
-            text-align: right;
+        .top-nav {
+            display: flex;
+            justify-content: flex-end;
             margin-bottom: 20px;
         }
-        .lang-switch button {
+        .lang-btn-group {
             background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            padding: 4px;
+            border-radius: 30px;
             border: 1px solid var(--glass-border);
-            padding: 8px 16px;
-            margin-left: 8px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            color: var(--primary-color);
-            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
-        .lang-switch button:hover {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        .lang-btn {
+            border: none;
+            background: transparent;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .lang-btn.active {
+            background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent));
+            color: white;
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
         }
 
-        /* Header / Hero Section */
-        .header {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            margin-bottom: 40px;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-            padding-bottom: 30px;
+        /* Glassmorphism Main Card */
+        .main-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 45px;
+            box-shadow: var(--card-shadow);
         }
-        .profile-img {
-            width: 160px;
-            height: 160px;
+
+        /* Hero Header */
+        .hero {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 35px;
+            align-items: center;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            padding-bottom: 35px;
+            margin-bottom: 35px;
+        }
+        .avatar-wrapper {
+            position: relative;
+        }
+        .avatar-img {
+            width: 170px;
+            height: 170px;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 4px solid #fff;
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.2);
+            transition: transform 0.4s ease;
         }
-        .header-info h1 {
+        .avatar-wrapper:hover .avatar-img {
+            transform: scale(1.03) rotate(1deg);
+        }
+        .status-badge {
+            position: absolute;
+            bottom: 8px; right: 8px;
+            background: #10b981;
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .hero-text h1 {
             margin: 0;
-            font-size: 32px;
-            color: var(--text-dark);
+            font-size: 34px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #2c1a4d 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .header-info h2 {
-            margin: 5px 0 15px;
+        .hero-text .subtitle {
             font-size: 18px;
-            color: var(--primary-color);
-            font-weight: normal;
+            color: var(--primary-accent);
+            font-weight: 600;
+            margin: 6px 0 16px;
         }
-        .contact-info {
-            font-size: 14px;
-            color: var(--text-light);
+        .meta-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        .meta-item {
+            background: rgba(255,255,255,0.7);
+            padding: 6px 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.9);
+        }
+
+        /* Metric Cards */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        .metric-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255,255,255,0.8);
+            border-radius: 18px;
+            padding: 16px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .metric-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.1);
+        }
+        .metric-num {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--primary-accent);
+        }
+        .metric-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
         }
 
         /* Sections */
-        .section {
-            margin-bottom: 40px;
-        }
+        .section { margin-bottom: 40px; }
         .section-title {
-            font-size: 22px;
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--primary-color);
-            display: inline-block;
+            font-size: 20px;
+            font-weight: 700;
             margin-bottom: 20px;
-            padding-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #374151;
+        }
+        .section-title::before {
+            content: '';
+            width: 8px; height: 20px;
+            background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent));
+            border-radius: 4px;
         }
 
-        /* Timeline / Experience */
-        .job {
-            margin-bottom: 20px;
-            background: rgba(255, 255, 255, 0.4);
+        .bio-box {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 22px;
+            border-radius: 18px;
+            line-height: 1.8;
+            font-size: 14.5px;
+            color: #374151;
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 20px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 8px; bottom: 8px;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary-accent), var(--secondary-accent));
+            opacity: 0.3;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+            padding-left: 20px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -25px; top: 6px;
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: var(--primary-accent);
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
+        }
+        .job-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 16px;
             padding: 20px;
-            border-radius: 12px;
-            border-left: 4px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        .job-card:hover {
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
         }
         .job-header {
             display: flex;
             justify-content: space-between;
+            align-items: baseline;
             margin-bottom: 10px;
         }
-        .job-title {
-            font-weight: bold;
-            font-size: 16px;
-        }
-        .job-date {
-            color: var(--text-light);
-            font-size: 14px;
-        }
-        ul {
-            margin: 0;
-            padding-left: 20px;
-        }
+        .job-title { font-weight: 700; font-size: 16px; color: #111827; }
+        .job-date { font-size: 12px; font-weight: 600; color: var(--primary-accent); }
+        .job-desc { margin: 0; padding-left: 18px; font-size: 13.5px; color: #4b5563; }
+        .job-desc li { margin-bottom: 6px; }
 
-        /* Skills Table */
+        /* Skill Pills */
         .skills-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 15px;
         }
-        .skill-card {
-            background: rgba(255, 255, 255, 0.4);
-            padding: 15px;
-            border-radius: 12px;
+        .skill-group {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 16px;
+            padding: 18px;
+        }
+        .skill-group-title { font-weight: 700; font-size: 14px; margin-bottom: 10px; color: var(--primary-accent); }
+        .tag-container { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(139, 92, 246, 0.15);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #4b5563;
+        }
+
+        @media (max-width: 768px) {
+            .hero { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+            .meta-info { justify-content: center; }
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+            .main-card { padding: 25px; }
         }
     </style>
 </head>
 <body>
 
+<div class="aurora-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+</div>
+
 <div class="container">
-    <div class="lang-switch">
-        <button onclick="changeLang('en')">EN</button>
-        <button onclick="changeLang('ja')">日本語</button>
-        <button onclick="changeLang('zh')">中文</button>
-    </div>
-
-    <div class="header">
-        <img src="image.png" alt="Profile Image" class="profile-img">
-        <div class="header-info">
-            <h1 data-i18n="name">林 育伶 (LIN YULING)</h1>
-            <h2 data-i18n="title">経理スペシャリスト | 会計専門職 × IT対応力</h2>
-            <div class="contact-info">
-                <p><span data-i18n="location">東京都品川区</span> | aling12007@icloud.com | 070-1581-0065</p>
-                <p><span data-i18n="visa">在留資格：技術・人文知識・国際業務 (2029/3/18迄)</span></p>
-            </div>
+    <!-- Language Switcher -->
+    <div class="top-nav">
+        <div class="lang-btn-group">
+            <button class="lang-btn" onclick="setLanguage('en')">EN</button>
+            <button class="lang-btn active" onclick="setLanguage('ja')">日本語</button>
+            <button class="lang-btn" onclick="setLanguage('zh')">繁體中文</button>
         </div>
     </div>
 
-    <div class="section">
-        <div class="section-title" data-i18n="self_pr_title">自己PR</div>
-        <p data-i18n="self_pr_text">私は「会計専門職×IT対応力」を強みとする、実務経験10年以上の経理スペシャリストです。世界的な監査法人であるPWCでの監査経験をベースに、台湾、中国、香港、日本という異なるビジネス環境で、IFRSやGAAPに基づいた高度な会計実務を遂行してきました。特に直近の数年では、日本での経理実務に加え、ITサポート（PC・ネットワーク管理）を兼任しており、デジタル化が進む管理部門において、システムと財務の両面から業務効率化に貢献できる点が私のユニークな価値です。</p>
-    </div>
-
-    <div class="section">
-        <div class="section-title" data-i18n="exp_title">職務経歴</div>
-        
-        <!-- Job 1 -->
-        <div class="job">
-            <div class="job-header">
-                <div class="job-title"><span data-i18n="job1_company">Quanta Cloud Technology Japan株式会社</span> | <span data-i18n="job1_role">経理</span></div>
-                <div class="job-date">2024/11 - Present</div>
+    <!-- Main Card -->
+    <div class="main-card">
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="avatar-wrapper">
+                <img src="image.png" alt="Lin Yuling" class="avatar-img">
+                <span class="status-badge">ACTIVE</span>
             </div>
-            <ul data-i18n="job1_desc">
-                <li>月次・四半期・年次決算業務の遂行</li>
-                <li>IFRS基準に基づく財務諸表の作成および報告</li>
-                <li>仕訳記録、経費精算、予算管理、小口現金管理</li>
-                <li>税理士、銀行、その他官庁との折衝・書類対応</li>
-            </ul>
+            <div class="hero-text">
+                <h1 data-i18n="name">林 育伶 (LIN YULING)</h1>
+                <div class="subtitle" data-i18n="title">經理スペシャリスト | 會計專業 × IT對應力</div>
+                <div class="meta-info">
+                    <span class="meta-item">📍 <span data-i18n="loc">東京都品川區</span></span>
+                    <span class="meta-item">✉️ aling12007@icloud.com</span>
+                    <span class="meta-item">📞 070-1581-0065</span>
+                    <span class="meta-item">💳 <span data-i18n="visa">技術・人文知識・國際業務 (~2029/03)</span></span>
+                </div>
+            </div>
         </div>
 
-        <!-- Job 2 -->
-        <div class="job">
-            <div class="job-header">
-                <div class="job-title"><span data-i18n="job2_company">領耀株式会社</span> | <span data-i18n="job2_role">経理</span></div>
-                <div class="job-date">2024/09 - 2024/10</div>
+        <!-- Metrics Grid -->
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-num">10+ 年</div>
+                <div class="metric-label" data-i18n="m1">實務經理經驗</div>
             </div>
-            <ul data-i18n="job2_desc">
-                <li>輸出入に関わる税関申告書類の作成および管理と仕入れ・出荷の確認</li>
-                <li>IFRS基準に基づく月次・四半期・年次決算業務の遂行</li>
-            </ul>
-        </div>
-        
-        <!-- Job 3 -->
-        <div class="job">
-            <div class="job-header">
-                <div class="job-title"><span data-i18n="job3_company">AUO Japan株式会社</span> | <span data-i18n="job3_role">経理兼任IT</span></div>
-                <div class="job-date">2024/01 - 2024/06</div>
+            <div class="metric-card">
+                <div class="metric-num">PWC</div>
+                <div class="metric-label" data-i18n="m2">四大審計法人經歷</div>
             </div>
-            <ul data-i18n="job3_desc">
-                <li>経費精算、仕訳記録、決算、財務諸表作成、予算管理</li>
-                <li>ITサポート：パソコン、ネットワーク管理</li>
-            </ul>
+            <div class="metric-card">
+                <div class="metric-num">IFRS / GAAP</div>
+                <div class="metric-label" data-i18n="m3">跨國會計標準</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-num">Accounting + IT</div>
+                <div class="metric-label" data-i18n="m4">財務與系統雙專長</div>
+            </div>
         </div>
-    </div>
 
-    <div class="section">
-        <div class="section-title" data-i18n="skills_title">免許・資格・スキル</div>
-        <div class="skills-grid">
-            <div class="skill-card">
-                <strong><span data-i18n="lang_skill">語学</span></strong><br>
-                <span data-i18n="lang_desc">中国語 (ネイティブ) | 日本語 (JLPT N2) | 英語 (TOEIC 585, ビジネス実務経験有)</span>
-            </div>
-            <div class="skill-card">
-                <strong><span data-i18n="cert_skill">会計資格</span></strong><br>
-                <span data-i18n="cert_desc">日本商工会議所 簿記検定 2級・3級 | 丙級会計技術者 (台湾)</span>
-            </div>
-            <div class="skill-card">
-                <strong><span data-i18n="it_skill">ITスキル</span></strong><br>
-                <span data-i18n="it_desc">Excel (VlookUp, ピボット等中級以上) | Word/PPT (上級) | ITシステム・ネットワーク保守管理</span>
+        <!-- Self PR Section -->
+        <div class="section">
+            <div class="section-title" data-i18n="s1_title">優勢與簡介 (Professional Summary)</div>
+            <div class="bio-box" data-i18n="s1_text">
+                具備10年以上實務經驗的經理專精人才。以四大審計法人（PWC）的嚴謹審計經驗為基石，深耕台灣、中國、香港及日本等跨國商業環境。除具備熟練的 IFRS 與 GAAP 會計實務能力外，近年更於日本企業同時兼任 IT Support（電腦系統與網路設備維護）。能於數位轉型趨勢下，雙向協助管理部門達成財務精準度與系統自動化效益。
             </div>
         </div>
+
+        <!-- Career History Section -->
+        <div class="section">
+            <div class="section-title" data-i18n="s2_title">職務經歷 (Work Experience)</div>
+            <div class="timeline">
+                
+                <div class="timeline-item">
+                    <div class="job-card">
+                        <div class="job-header">
+                            <span class="job-title" data-i18n="j1_title">Quanta Cloud Technology Japan株式會社 | 經理</span>
+                            <span class="job-date">2024/11 - Present</span>
+                        </div>
+                        <ul class="job-desc" data-i18n="j1_desc">
+                            <li>執行月度、季度與年度決算結算業務</li>
+                            <li>編製及陳報符合 IFRS 國際會計準則之財務報表</li>
+                            <li>日常分錄、費用精算、預算控管及零用金管理</li>
+                            <li>對外負責稅務士、往來銀行及官廳機構之對應與交涉</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="job-card">
+                        <div class="job-header">
+                            <span class="job-title" data-i18n="j2_title">領耀株式會社 | 經理</span>
+                            <span class="job-date">2024/09 - 2024/10</span>
+                        </div>
+                        <ul class="job-desc" data-i18n="j2_desc">
+                            <li>製作並管理進出口海關申報文件、負責進出貨核對</li>
+                            <li>執行基於 IFRS 基準之決算與財務報表編製</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="job-card">
+                        <div class="job-header">
+                            <span class="job-title" data-i18n="j3_title">AUO Japan株式會社 | 經理兼任IT</span>
+                            <span class="job-date">2024/01 - 2024/06</span>
+                        </div>
+                        <ul class="job-desc" data-i18n="j3_desc">
+                            <li>全盤帳務處理、費用精算、資金調度、稅務申報對應</li>
+                            <li>兼任 IT 設備維護：公司 PC 設置、網路環境監控與維護</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="job-card">
+                        <div class="job-header">
+                            <span class="job-title" data-i18n="j4_title">株式會社 X&T | 經理</span>
+                            <span class="job-date">2020/03 - 2023/06</span>
+                        </div>
+                        <ul class="job-desc" data-i18n="j4_desc">
+                            <li>線上遊戲與飯店管理雙事業群之財務報表審核與編製</li>
+                            <li>負責商工事務處理及指導新人同仁</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Skills Section -->
+        <div class="section">
+            <div class="section-title" data-i18n="s3_title">技能與資格 (Skills & Certifications)</div>
+            <div class="skills-grid">
+                <div class="skill-group">
+                    <div class="skill-group-title" data-i18n="k1_title">🌐 語言能力</div>
+                    <div class="tag-container">
+                        <span class="tag">中文 (母語)</span>
+                        <span class="tag">日文 (JLPT N2)</span>
+                        <span class="tag">英文 (TOEIC 585 / 商務溝通)</span>
+                    </div>
+                </div>
+                <div class="skill-group">
+                    <div class="skill-group-title" data-i18n="k2_title">📜 專業證照</div>
+                    <div class="tag-container">
+                        <span class="tag">日本商工會議所 簿記2級</span>
+                        <span class="tag">日本商工會議所 簿記3級</span>
+                        <span class="tag">丙級會計技術士 (台灣)</span>
+                    </div>
+                </div>
+                <div class="skill-group">
+                    <div class="skill-group-title" data-i18n="k3_title">💻 IT 與系統應用</div>
+                    <div class="tag-container">
+                        <span class="tag">Excel (VLOOKUP, 樞紐分析)</span>
+                        <span class="tag">Word / PowerPoint (高級)</span>
+                        <span class="tag">PC & 網路維護</span>
+                        <span class="tag">ERP 帳務軟體</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
 <script>
-    const translations = {
-        ja: {
+    const dict = {
+        zh: {
             name: "林 育伶 (LIN YULING)",
+            title: "財務會計專家 | 會計專業 × IT對應力",
+            loc: "東京都品川區",
+            visa: "在留資格：技術・人文知識・國際業務 (~2029/03)",
+            m1: "實務經理經驗", m2: "四大審計法人經歷", m3: "跨國會計標準", m4: "財務與系統雙專長",
+            s1_title: "優勢與簡介 (Professional Summary)",
+            s1_text: "具備10年以上實務經驗的經理專精人才。以四大審計法人（PWC）的嚴謹審計經驗為基石，深耕台灣、中國、香港及日本等跨國商業環境。除具備熟練的 IFRS 與 GAAP 會計實務能力外，近年更於日本企業同時兼任 IT Support（電腦系統與網路設備維護）。能於數位轉型趨勢下，雙向協助管理部門達成財務精準度與系統自動化效益。",
+            s2_title: "職務經歷 (Work Experience)",
+            j1_title: "Quanta Cloud Technology Japan株式會社 | 經理",
+            j1_desc: "<li>執行月度、季度與年度決算結算業務</li><li>編製及陳報符合 IFRS 國際會計準則之財務報表</li><li>日常分錄、費用精算、預算控管及零用金管理</li><li>對外負責稅務士、往來銀行及官廳機構之對應與交涉</li>",
+            j2_title: "領耀株式會社 | 經理",
+            j2_desc: "<li>製作並管理進出口海關申報文件、負責進出貨核對</li><li>執行基於 IFRS 基準之決算與財務報表編製</li>",
+            j3_title: "AUO Japan株式會社 | 經理兼任IT",
+            j3_desc: "<li>全盤帳務處理、費用精算、資金調度、稅務申報對應</li><li>兼任 IT 設備維護：公司 PC 設置、網路環境監控與維護</li>",
+            j4_title: "株式會社 X&T | 經理",
+            j4_desc: "<li>線上遊戲與飯店管理雙事業群之財務報表審核與編製</li><li>負責商工事務處理及指導新人同仁</li>",
+            s3_title: "技能與資格 (Skills & Certifications)",
+            k1_title: "🌐 語言能力", k2_title: "📜 專業證照", k3_title: "💻 IT 與系統應用"
+        },
+        ja: {
+            name: "林 育伶 (リン ユリン)",
             title: "経理スペシャリスト | 会計専門職 × IT対応力",
-            location: "東京都品川区",
-            visa: "在留資格：技術・人文知識・国際業務 (2029/3/18迄)",
-            self_pr_title: "自己PR",
-            self_pr_text: "私は「会計専門職×IT対応力」を強みとする、実務経験10年以上の経理スペシャリストです。世界的な監査法人であるPWCでの監査経験をベースに、台湾、中国、香港、日本という異なるビジネス環境で、IFRSやGAAPに基づいた高度な会計実務を遂行してきました。特に直近の数年では、日本での経理実務に加え、ITサポート（PC・ネットワーク管理）を兼任しており、デジタル化が進む管理部門において、システムと財務の両面から業務効率化に貢献できる点が私のユニークな価値です。",
-            exp_title: "職務経歴",
-            job1_company: "Quanta Cloud Technology Japan株式会社",
-            job1_role: "経理",
-            job1_desc: "<li>月次・四半期・年次決算業務の遂行</li><li>IFRS基準に基づく財務諸表の作成および報告</li><li>仕訳記録、経費精算、予算管理、小口現金管理</li><li>税理士、銀行、その他官庁との折衝・書類対応</li>",
-            job2_company: "領耀株式会社",
-            job2_role: "経理",
-            job2_desc: "<li>輸出入に関わる税関申告書類の作成および管理と仕入れ・出荷の確認</li><li>IFRS基準に基づく月次・四半期・年次決算業務の遂行</li>",
-            job3_company: "AUO Japan株式会社",
-            job3_role: "経理兼任IT",
-            job3_desc: "<li>経費精算、仕訳記録、決算、財務諸表作成、予算管理</li><li>ITサポート：パソコン、ネットワーク管理</li>",
-            skills_title: "免許・資格・スキル",
-            lang_skill: "語学",
-            lang_desc: "中国語 (ネイティブ) | 日本語 (JLPT N2) | 英語 (TOEIC 585, ビジネス実務経験有)",
-            cert_skill: "会計資格",
-            cert_desc: "日本商工会議所 簿記検定 2級・3級 | 丙級会計技術者 (台湾)",
-            it_skill: "ITスキル",
-            it_desc: "Excel (VlookUp, ピボット等中級以上) | Word/PPT (上級) | ITシステム・ネットワーク保守管理"
+            loc: "東京都品川区",
+            visa: "在留資格：技術・人文知識・国際業務 (~2029/03)",
+            m1: "経理実務経験", m2: "PWC監査法人出身", m3: "IFRS / GAAP準拠", m4: "財務 × IT兼任",
+            s1_title: "自己PR (Professional Summary)",
+            s1_text: "私は「会計専門職×IT対応力」を強みとする、実務経験10年以上の経理スペシャリストです。世界的な監査法人であるPWCでの監査経験をベースに、台灣、中國、香港、日本という異なるビジネス環境で、IFRSやGAAPに基づいた高度な会計実務を遂行してきました。特に直近の数年では、日本での経理実務に加え、ITサポート（PC・ネットワーク管理）を兼任しており、デジタル化が進む管理部門において、システムと財務の両面から業務効率化に貢献できます。",
+            s2_title: "職務経歴 (Work Experience)",
+            j1_title: "Quanta Cloud Technology Japan株式会社 | 経理",
+            j1_desc: "<li>月次・四半期・年次決算業務の遂行</li><li>IFRS基準に基づく財務諸表の作成および報告</li><li>仕訳記録、経費精算、予算管理、小口現金管理</li><li>税理士、銀行、その他官庁との折衝・書類対応</li>",
+            j2_title: "領耀株式会社 | 経理",
+            j2_desc: "<li>輸出入に関わる税関申告書類の作成および管理と仕入れ・出荷の確認</li><li>IFRS基準に基づく決算業務の遂行</li>",
+            j3_title: "AUO Japan株式会社 | 経理兼任IT",
+            j3_desc: "<li>経費精算、仕訳記録、決算、財務諸表作成、予算管理</li><li>ITサポート：パソコン、ネットワーク管理</li>",
+            j4_title: "株式会社X&T | 経理",
+            j4_desc: "<li>財務諸表の監査、財務諸表の作成と経営成績報告</li><li>商工事務処理および新入社員の指導</li>",
+            s3_title: "技能・資格 (Skills & Certifications)",
+            k1_title: "🌐 語学スキル", k2_title: "📜 保有資格", k3_title: "💻 ITスキル"
         },
         en: {
             name: "Lin Yuling",
-            title: "Accounting Specialist | Accounting x IT",
-            location: "Shinagawa-ku, Tokyo",
-            visa: "Visa: Engineer/Specialist in Humanities/Intl Services (Until 2029/3/18)",
-            self_pr_title: "Professional Summary",
-            self_pr_text: "I am an Accounting Specialist with over 10 years of experience, combining accounting expertise with IT capabilities. Building on my audit experience at PWC, I have executed advanced accounting practices based on IFRS and GAAP across Taiwan, China, Hong Kong, and Japan. Recently, alongside my accounting duties in Japan, I have concurrently handled IT support (PC and network management), allowing me to uniquely contribute to operational efficiency from both systems and financial perspectives in digitized administrative departments.",
-            exp_title: "Work Experience",
-            job1_company: "Quanta Cloud Technology Japan",
-            job1_role: "Accounting",
-            job1_desc: "<li>Execution of monthly, quarterly, and annual closing processes.</li><li>Preparation and reporting of financial statements based on IFRS.</li><li>Journal entries, expense settlement, budget and petty cash management.</li><li>Negotiation and document handling with tax accountants, banks, and authorities.</li>",
-            job2_company: "Lingyao Co., Ltd.",
-            job2_role: "Accounting",
-            job2_desc: "<li>Preparation of customs declaration documents for import/export and shipment verification.</li><li>Execution of closing processes based on IFRS.</li>",
-            job3_company: "AUO Japan Co., Ltd.",
-            job3_role: "Accounting & IT Support",
-            job3_desc: "<li>Expense settlement, closing, financial statement preparation, budget management.</li><li>IT Support: PC and network management.</li>",
-            skills_title: "Licenses, Certifications & Skills",
-            lang_skill: "Languages",
-            lang_desc: "Chinese (Native) | Japanese (JLPT N2) | English (TOEIC 585, Business level)",
-            cert_skill: "Certifications",
-            cert_desc: "JCCI Bookkeeping 2nd & 3rd Grade | Class C Accounting Technician (Taiwan)",
-            it_skill: "IT Skills",
-            it_desc: "Excel (Intermediate/Advanced) | Word/PPT (Advanced) | IT System & Network Maintenance"
-        },
-        zh: {
-            name: "林 育伶 (LIN YULING)",
-            title: "財務會計專家 | 會計專業 × IT技能",
-            location: "東京都品川區",
-            visa: "在留資格：技術・人文知識・國際業務 (至 2029/3/18)",
-            self_pr_title: "自我介紹",
-            self_pr_text: "我是一名擁有10年以上實務經驗的會計專家，主打「會計專業 × IT技能」。以全球知名審計法人PWC的審計經驗為基礎，我在台灣、中國、香港及日本等不同的商業環境中，執行基於IFRS和GAAP的高階會計實務。近年來，除了在日本的會計工作外，我還兼任IT支援（電腦與網路管理）。在數位化進程不斷推進的管理部門中，能夠從系統和財務雙管齊下提升業務效率，是我的獨特價值所在。",
-            exp_title: "工作經歷",
-            job1_company: "Quanta Cloud Technology Japan株式會社",
-            job1_role: "財務會計",
-            job1_desc: "<li>執行月度、季度和年度結算業務。</li><li>根據IFRS標準編製和報告財務報表。</li><li>分錄記錄、費用報銷、預算管理、零用金管理。</li><li>負責與稅務士、銀行及其他政府機關的交涉與文件處理。</li>",
-            job2_company: "領耀株式會社",
-            job2_role: "財務會計",
-            job2_desc: "<li>進出口海關申報文件的製作與管理，以及進出貨確認。</li><li>根據IFRS標準執行結算業務。</li>",
-            job3_company: "AUO Japan株式會社",
-            job3_role: "財務會計兼IT",
-            job3_desc: "<li>費用報銷、分錄記錄、結算、財務報表編製、預算管理。</li><li>IT支援：電腦、網路管理。</li>",
-            skills_title: "證照與技能",
-            lang_skill: "語言",
-            lang_desc: "中文 (母語) | 日文 (JLPT N2) | 英文 (TOEIC 585, 具商務實務經驗)",
-            cert_skill: "會計證照",
-            cert_desc: "日本商工會議所 簿記檢定 2級・3級 | 丙級會計技術士 (台灣)",
-            it_skill: "IT技能",
-            it_desc: "Excel (VlookUp、樞紐分析等中級以上) | Word/PPT (高級) | IT系統與網路維護管理"
+            title: "Accounting Specialist | Accounting x IT Support",
+            loc: "Shinagawa-ku, Tokyo",
+            visa: "Status: Engineer / Specialist in Humanities (~2029/03)",
+            m1: "10+ Yrs Exp.", m2: "PWC Audit", m3: "IFRS / GAAP", m4: "Finance + IT",
+            s1_title: "Professional Summary",
+            s1_text: "Accounting Specialist with over 10 years of multi-regional experience in Taiwan, China, Hong Kong, and Japan. Backed by solid auditing fundamentals at Big 4 firm (PWC), I specialize in IFRS/GAAP accounting practices. Concurrently experienced in handling IT Infrastructure support (PC & Network maintenance), providing unique value in streamlining both financial operations and system digital transformation.",
+            s2_title: "Work Experience",
+            j1_title: "Quanta Cloud Technology Japan | Accounting",
+            j1_desc: "<li>Executed monthly, quarterly, and annual financial closing tasks.</li><li>Prepared financial statements compliant with IFRS standards.</li><li>Managed journal entries, expense claims, budget control, and petty cash.</li><li>Handled official liaisons with tax accountants, banks, and government agencies.</li>",
+            j2_title: "Lingyao Co., Ltd. | Accounting",
+            j2_desc: "<li>Managed customs import/export declarations and verified shipments.</li><li>Executed closing operations based on IFRS standards.</li>",
+            j3_title: "AUO Japan Co., Ltd. | Accounting & IT Support",
+            j3_desc: "<li>Conducted full accounting, expense settlements, and tax filings.</li><li>Provided IT Support: PC provisioning and network maintenance.</li>",
+            j4_title: "X&T Co., Ltd. | Accounting",
+            j4_desc: "<li>Audited and prepared financial statements for online gaming and hotel sectors.</li><li>Handled commercial paperwork and mentored junior staff.</li>",
+            s3_title: "Skills & Certifications",
+            k1_title: "🌐 Languages", k2_title: "📜 Certifications", k3_title: "💻 IT Applications"
         }
     };
 
-    function changeLang(lang) {
+    function setLanguage(lang) {
+        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
-            if (translations[lang][key]) {
-                el.innerHTML = translations[lang][key];
+            if (dict[lang][key]) {
+                el.innerHTML = dict[lang][key];
             }
         });
     }
