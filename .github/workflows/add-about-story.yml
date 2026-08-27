@@ -17,122 +17,23 @@ jobs:
 
       - name: Add expandable story
         run: |
+          echo 'ICAgICAgPGRldGFpbHMgY2xhc3M9ImFib3V0LXN0b3J5LWRldGFpbHMiPgogICAgICAgIDxzdW1tYXJ5PgogICAgICAgICAgPHNwYW4gY2xhc3M9InN0b3J5LWxhYmVsLWNsb3NlZCI+CiAgICAgICAgICAgIDxzcGFuIGRhdGEtbGFuZz0iZW4iPlJlYWQgbW9yZSBvZiBteSBzdG9yeTwvc3Bhbj4KICAgICAgICAgICAgPHNwYW4gZGF0YS1sYW5nPSJqYSI+44KC44GG5bCR44GX44K544OI44O844Oq44O844KS6Kqt44KAPC9zcGFuPgogICAgICAgICAgICA8c3BhbiBkYXRhLWxhbmc9InpoIj7plrHoroDmm7TlpJrmlYXkuos8L3NwYW4+CiAgICAgICAgICA8L3NwYW4+CiAgICAgICAgICA8c3BhbiBjbGFzcz0ic3RvcnktbGFiZWwtb3BlbiI+CiAgICAgICAgICAgIDxzcGFuIGRhdGEtbGFuZz0iZW4iPkNsb3NlIHN0b3J5PC9zcGFuPgogICAgICAgICAgICA8c3BhbiBkYXRhLWxhbmc9ImphIj7jgrnjg4jjg7zjg6rjg7zjgpLplonjgZjjgos8L3NwYW4+CiAgICAgICAgICAgIDxzcGFuIGRhdGEtbGFuZz0iemgiPuaUtui1t+aVheS6izwvc3Bhbj4KICAgICAgICAgIDwvc3Bhbj4KICAgICAgICAgIDxzcGFuIGNsYXNzPSJzdG9yeS10b2dnbGUtaWNvbiIgYXJpYS1oaWRkZW49InRydWUiPis8L3NwYW4+CiAgICAgICAgPC9zdW1tYXJ5PgogICAgICAgIDxkaXYgY2xhc3M9ImFib3V0LXN0b3J5LWNvbnRlbnQiPgogICAgICAgICAgPHA+CiAgICAgICAgICAgIDxzcGFuIGRhdGEtbGFuZz0iZW4iPkFzIGEgY2hpbGQsIEkgaGFkIGEgc2ltcGxlIGZhc2NpbmF0aW9uIHdpdGggbGlmZSBhYnJvYWQuIEkgcmFyZWx5IGhhZCBvcHBvcnR1bml0aWVzIHRvIHRyYXZlbCwgc28gdGhlIHdvcmxkIGJleW9uZCBUYWl3YW4gZmVsdCBkaXN0YW50IGFuZCBmdWxsIG9mIHBvc3NpYmlsaXR5LiBBcyBJIGdyZXcgb2xkZXIsIEkgYmVnYW4gdG8gdW5kZXJzdGFuZCB0aGF0IGlmIEkgd2FudGVkIHRvIHNlZSBhIGJpZ2dlciB3b3JsZCwgSSB3b3VsZCBoYXZlIHRvIHRha2UgdGhlIGZpcnN0IHN0ZXAgbXlzZWxmLjwvc3Bhbj4KICAgICAgICAgICAgPHNwYW4gZGF0YS1sYW5nPSJqYSI+5a2Q44Gp44KC44Gu6aCD44Gu56eB44Gv44CB5rW35aSW44Gn5pqu44KJ44GZ44GT44Go44Gr57Sg5py044Gq5oan44KM44KS5oyB44Gj44Gm44GE44G+44GX44Gf44CC5rW35aSW44G46KGM44GP5qmf5Lya44Gv44G744Go44KT44Gp44Gq44GP44CB5Y+w5rm+44Gu5aSW44Gu5LiW55WM44Gv6YGg44GP44CB5Y+v6IO95oCn44Gr5rqA44Gh44Gf5aC05omA44Gu44KI44GG44Gr5oSf44GY44Gm44GE44G+44GX44Gf44CC5aSn5Lq644Gr44Gq44KL44Gr44Gk44KM44Gm44CB44KC44Gj44Go5bqD44GE5LiW55WM44KS6KaL44Gf44GE44Gq44KJ44CB44G+44Ga6Ieq5YiG6Ieq6Lqr44Gn5LiA5q2p44KS6LiP44G/5Ye644GZ5b+F6KaB44GM44GC44KL44Go6ICD44GI44KL44KI44GG44Gr44Gq44KK44G+44GX44Gf44CCPC9zcGFuPgogICAgICAgICAgICA8c3BhbiBkYXRhLWxhbmc9InpoIj7lsI/mmYLlgJnnmoTmiJHvvIzlsI3jgIzmtbflpJbnlJ/mtLvjgI3mnInkuIDnqK7lvojllq7ntJTnmoTlmq7lvoDjgILpgqPmmYLlvojlsJHmnInmqZ/mnIPlh7rlnIvvvIzlj7DngaPku6XlpJbnmoTkuJbnlYzlsI3miJHkvoboqqrml6LpgZnpgaDvvIzlj4jlhYXmu7/lj6/og73jgILplbflpKflvozmiJHmhaLmhaLmmI7nmb3vvIzlpoLmnpznnJ/nmoTmg7PnnIvnnIvmm7TlpKfnmoTkuJbnlYzvvIzlvojlpJrmmYLlgJnlj6rog73lhYjpnaDoh6rlt7HouI/lh7rnrKzkuIDmraXjgII8L3NwYW4+CiAgICAgICAgICA8L3A+CiAgICAgICAgICA8cD4KICAgICAgICAgICAgPHNwYW4gZGF0YS1sYW5nPSJlbiI+T25jZSBJIGFjdHVhbGx5IGxlZnQgVGFpd2FuLCBJIGxlYXJuZWQgdGhhdCBsaXZpbmcgYWJyb2FkIHdhcyBub3Qgb25seSBhYm91dCBub3ZlbHR5IGFuZCBmcmVlZG9tLiBNb3ZpbmcgdGhyb3VnaCBDaGluYSwgSG9uZyBLb25nIGFuZCBKYXBhbiBtZWFudCByZXBlYXRlZGx5IGxlYXJuaW5nIG5ldyBjdWx0dXJlcywgd29ya2luZyBzdHlsZXMgYW5kIGV2ZXJ5ZGF5IHJvdXRpbmVzLiBUaGVyZSB3ZXJlIG1vbWVudHMgb2YgdW5jZXJ0YWludHkgYW5kIGRpZmZpY3VsdHksIGJ1dCB0aG9zZSBleHBlcmllbmNlcyB0YXVnaHQgbWUgdGhhdCBzdGFydGluZyBhZ2FpbiBpcyBub3Qgc29tZXRoaW5nIHRvIGZlYXLigJRhbmQgc2hvd2VkIG1lIGhvdyBtdWNoIEkgY291bGQgYWRhcHQgYW5kIGtlZXAgbW92aW5nIGZvcndhcmQuPC9zcGFuPgogICAgICAgICAgICA8c3BhbiBkYXRhLWxhbmc9ImphIj7lrp/pmpvjgavlj7Dmub7jgpLpm6Ljgozjgabjgb/jgovjgajjgIHmtbflpJbnlJ/mtLvjga/mlrDprq7jgZXjgoToh6rnlLHjgaDjgZHjgafjga/jgarjgYTjgZPjgajjgoLnn6Xjgorjgb7jgZfjgZ/jgILkuK3lm73jgIHpppnmuK/jgIHml6XmnKzjgbjjgajnp7vjgovjgZ/jgbPjgavjgIHmlofljJbjgIHku5Xkuovjga7pgLLjgoHmlrnjgIHml6XluLjnlJ/mtLvjgpLkuIDjgYvjgonnkIbop6PjgZfnm7TjgZnlv4XopoHjgYzjgYLjgorjgb7jgZfjgZ/jgILkuI3lronjgoTlpKflpInjgZXjgoLjgYLjgorjgb7jgZfjgZ/jgYzjgIHjgZ3jga7ntYzpqJPjgpLpgJrjgZfjgabjgIHjgoLjgYbkuIDluqblp4vjgoHjgovjgZPjgajjgpLmgZDjgozjgarjgY/jgarjgorjgIHoh6rliIbjgYzjganjgozjgaDjgZHpganlv5zjgZfliY3jgbjpgLLjgoHjgovjga7jgYvjgpLnn6XjgovjgZPjgajjgYzjgafjgY3jgb7jgZfjgZ/jgII8L3NwYW4+CiAgICAgICAgICAgIDxzcGFuIGRhdGEtbGFuZz0iemgiPuecn+ato+mboumWi+WPsOeBo+S5i+W+jO+8jOaIkeaJjeeZvOePvua1t+WklueUn+a0u+S4puS4jeWPquacieaWsOmuruiIh+iHqueUseOAguW+nuS4reWci+OAgemmmea4r+WIsOaXpeacrO+8jOavj+S4gOasoeenu+WLle+8jOmDveS7o+ihqOmHjeaWsOeQhuino+aWh+WMluOAgeW3peS9nOaWueW8j+iIh+aXpeW4uOeUn+a0u+OAgumBjueoi+S4reeVtueEtuS5n+acieS4jeeiuuWumuiIh+i+m+iLpu+8jOS9huato+aYr+mAmeS6m+e2k+mpl++8jOiuk+aIkeS4jeWGjeWus+aAlemHjeaWsOmWi+Wni++8jOS5n+abtOefpemBk+iHquW3seWPr+S7pemBqeaHieWkmuWwkeOAgei1sOWkmumBoOOAgjwvc3Bhbj4KICAgICAgICAgIDwvcD4KICAgICAgICAgIDxibG9ja3F1b3RlIGNsYXNzPSJhYm91dC1zdG9yeS1xdW90ZSI+CiAgICAgICAgICAgIDxzcGFuIGRhdGEtbGFuZz0iZW4iPuKAnEkgYW0gbGl2aW5nIHRoZSBvdmVyc2VhcyBsaWZlIHRoYXQgbXkgeW91bmdlciBzZWxmIG9uY2UgYWRtaXJlZC7igJ08L3NwYW4+CiAgICAgICAgICAgIDxzcGFuIGRhdGEtbGFuZz0iamEiPuOAjOS7iuOBruengeOBr+OAgeWtkOOBqeOCguOBrumgg+OBruiHquWIhuOBjOaGp+OCjOOBpuOBhOOBn+a1t+WklueUn+a0u+OCkumAgeOBo+OBpuOBhOOBvuOBmeOAguOAjTwvc3Bhbj4KICAgICAgICAgICAgPHNwYW4gZGF0YS1sYW5nPSJ6aCI+44CM5oiR5q2j5Zyo6YGO6JGX5bCP5pmC5YCZ55qE5oiR5omA576o5oWV55qE5rW35aSW55Sf5rS744CC44CNPC9zcGFuPgogICAgICAgICAgPC9ibG9ja3F1b3RlPgogICAgICAgICAgPHA+CiAgICAgICAgICAgIDxzcGFuIGRhdGEtbGFuZz0iZW4iPlRvIG1lLCB0aGF0IHNlbnRlbmNlIGRvZXMgbm90IG1lYW4gbGlmZSBpcyBwZXJmZWN0LiBJdCByZW1pbmRzIG1lIHRoYXQgdGhlIGdpcmwgd2hvIG9uY2UgdGhvdWdodCB0aGUgd2lkZXIgd29ybGQgd2FzIHZlcnkgZmFyIGF3YXkgZXZlbnR1YWxseSByZWFjaGVkIGEgcGxhY2Ugc2hlIGhhZCBvbmNlIGltYWdpbmVkLCBvbmUgZGVjaXNpb24gYXQgYSB0aW1lLiBUaGF0IGpvdXJuZXkgY29udGludWVzIHRvIHNoYXBlIGhvdyBJIGxlYXJuLCB3b3JrIGFuZCBleHBsb3JlIHdoYXQgY29tZXMgbmV4dC48L3NwYW4+CiAgICAgICAgICAgIDxzcGFuIGRhdGEtbGFuZz0iamEiPuOBk+OBruiogOiRieOBr+OAgeS7iuOBrueUn+a0u+OBjOWujOeSp+OBoOOBqOOBhOOBhuaEj+WRs+OBp+OBr+OBguOCiuOBvuOBm+OCk+OAguOBi+OBpOOBpuW6g+OBhOS4lueVjOOCkumBoOOBj+aEn+OBmOOBpuOBhOOBn+iHquWIhuOBjOOAgeS4gOOBpOOBsuOBqOOBpOOBrumBuOaKnuOCkumHjeOBreOBquOBjOOCieOAgeOBhOOBpOOBi+aAneOBhOaPj+OBhOOBpuOBhOOBn+WgtOaJgOOBvuOBp+acrOW9k+OBq+atqeOBhOOBpuOBjeOBn+OBk+OBqOOCkuaAneOBhOWHuuOBleOBm+OBpuOBj+OCjOOCi+iogOiRieOBp+OBmeOAguOBk+OBrue1jOmok+OBr+OAgeS7iuOCguengeOBruWtpuOBs+aWueOAgeWDjeOBjeaWueOAgeOBneOBl+OBpuasoeOBruaMkeaIpuOBuOOBruWQkeOBjeWQiOOBhOaWueOBq+OBpOOBquOBjOOBo+OBpuOBhOOBvuOBmeOAgjwvc3Bhbj4KICAgICAgICAgICAgPHNwYW4gZGF0YS1sYW5nPSJ6aCI+6YCZ5Y+l6Kmx5Lim5LiN5piv6Kqq54++5Zyo55qE55Sf5rS75a6M576O77yM6ICM5piv5o+Q6YaS5oiR77ya6YKj5YCL5pu+57aT6Ka65b6X5aSW6Z2i55qE5LiW55WM5b6I6YGZ6YGg55qE5bCP5aWz5a2p77yM55yf55qE6Z2g6JGX5LiA5qyh5qyh6YG45pOH77yM5LiA5q2l5LiA5q2l6LWw5Yiw5LqG6Ieq5bex5pu+57aT5Zqu5b6A55qE5Zyw5pa544CC6YCZ5q616Lev77yM5Lmf5oyB57qM5b2x6Z+/6JGX5oiR54++5Zyo5a2457+S44CB5bel5L2c77yM5Lul5Y+K6Z2i5bCN5LiL5LiA5YCL5oyR5oiw55qE5pa55byP44CCPC9zcGFuPgogICAgICAgICAgPC9wPgogICAgICAgIDwvZGl2PgogICAgICA8L2RldGFpbHM+' | base64 -d > /tmp/story.html
+          echo 'LyogVjU3IGV4cGFuZGFibGUgQWJvdXQgc3RvcnkgKi8KLmFib3V0LXN0b3J5LWRldGFpbHN7CiAgbWFyZ2luLXRvcDoxMHB4OwogIGJvcmRlci10b3A6MXB4IHNvbGlkIHJnYmEoNzgsNjEsODIsLjEwKTsKfQouYWJvdXQtc3RvcnktZGV0YWlscyBzdW1tYXJ5ewogIGxpc3Qtc3R5bGU6bm9uZTsKICBkaXNwbGF5OmZsZXg7CiAgYWxpZ24taXRlbXM6Y2VudGVyOwogIGp1c3RpZnktY29udGVudDpzcGFjZS1iZXR3ZWVuOwogIGdhcDoxMnB4OwogIHdpZHRoOjEwMCU7CiAgcGFkZGluZzoxMnB4IDJweCA0cHg7CiAgY3Vyc29yOnBvaW50ZXI7CiAgY29sb3I6dmFyKC0tbWF1dmUpOwogIGZvbnQtc2l6ZToxMnB4OwogIGZvbnQtd2VpZ2h0OjgwMDsKICBsZXR0ZXItc3BhY2luZzouMDNlbTsKfQouYWJvdXQtc3RvcnktZGV0YWlscyBzdW1tYXJ5Ojotd2Via2l0LWRldGFpbHMtbWFya2Vye2Rpc3BsYXk6bm9uZX0KLnN0b3J5LWxhYmVsLW9wZW57ZGlzcGxheTpub25lfQouYWJvdXQtc3RvcnktZGV0YWlsc1tvcGVuXSAuc3RvcnktbGFiZWwtY2xvc2Vke2Rpc3BsYXk6bm9uZX0KLmFib3V0LXN0b3J5LWRldGFpbHNbb3Blbl0gLnN0b3J5LWxhYmVsLW9wZW57ZGlzcGxheTppbmxpbmV9Ci5zdG9yeS10b2dnbGUtaWNvbnsKICBmbGV4OjAgMCBhdXRvOwogIGZvbnQtc2l6ZToyMHB4OwogIGxpbmUtaGVpZ2h0OjE7CiAgZm9udC13ZWlnaHQ6NDAwOwogIHRyYW5zaXRpb246dHJhbnNmb3JtIC4ycyBlYXNlOwp9Ci5hYm91dC1zdG9yeS1kZXRhaWxzW29wZW5dIC5zdG9yeS10b2dnbGUtaWNvbnt0cmFuc2Zvcm06cm90YXRlKDQ1ZGVnKX0KLmFib3V0LXN0b3J5LWNvbnRlbnR7CiAgbWF4LXdpZHRoOjEwNDBweDsKICBwYWRkaW5nOjEycHggMCA0cHg7Cn0KLmFib3V0LXN0b3J5LWNvbnRlbnQgcHsKICBtYXJnaW46MCAwIDE0cHg7CiAgY29sb3I6IzYyNTc2NTsKICBmb250LXNpemU6MTRweDsKICBsaW5lLWhlaWdodDoxLjg1Owp9Ci5hYm91dC1zdG9yeS1xdW90ZXsKICBtYXJnaW46MThweCAwOwogIHBhZGRpbmc6MTVweCAxOHB4OwogIGJvcmRlci1sZWZ0OjNweCBzb2xpZCByZ2JhKDE4NSwxNDcsOTcsLjYyKTsKICBiYWNrZ3JvdW5kOnJnYmEoMjQ4LDI0MywyNDgsLjcyKTsKICBjb2xvcjojNTE0NjUyOwogIGZvbnQtZmFtaWx5Okdlb3JnaWEsIlRpbWVzIE5ldyBSb21hbiIsc2VyaWY7CiAgZm9udC1zaXplOjE4cHg7CiAgbGluZS1oZWlnaHQ6MS42NTsKfQpAbWVkaWEobWF4LXdpZHRoOjcyMHB4KXsKICAuYWJvdXQtc3RvcnktZGV0YWlscyBzdW1tYXJ5e3BhZGRpbmctdG9wOjEwcHg7Zm9udC1zaXplOjExLjVweH0KICAuYWJvdXQtc3RvcnktY29udGVudHtwYWRkaW5nLXRvcDoxMHB4fQogIC5hYm91dC1zdG9yeS1jb250ZW50IHB7Zm9udC1zaXplOjEzcHg7bGluZS1oZWlnaHQ6MS43NX0KICAuYWJvdXQtc3RvcnktcXVvdGV7Zm9udC1zaXplOjE2cHg7cGFkZGluZzoxM3B4IDE0cHg7bWFyZ2luOjE1cHggMH0KfQ==' | base64 -d > /tmp/story.css
           python3 - <<'PY'
           from pathlib import Path
           import re
-
           p = Path('index.html')
           s = p.read_text(encoding='utf-8')
-
+          story = Path('/tmp/story.html').read_text(encoding='utf-8')
+          css = Path('/tmp/story.css').read_text(encoding='utf-8')
           if 'about-story-details' in s:
               raise SystemExit('Expandable About story already exists')
-
-          story = '''
-      <details class="about-story-details">
-        <summary>
-          <span class="story-label-closed">
-            <span data-lang="en">Read more of my story</span>
-            <span data-lang="ja">もう少しストーリーを読む</span>
-            <span data-lang="zh">閱讀更多故事</span>
-          </span>
-          <span class="story-label-open">
-            <span data-lang="en">Close story</span>
-            <span data-lang="ja">ストーリーを閉じる</span>
-            <span data-lang="zh">收起故事</span>
-          </span>
-          <span class="story-toggle-icon" aria-hidden="true">+</span>
-        </summary>
-        <div class="about-story-content">
-          <p>
-            <span data-lang="en">As a child, I had a simple fascination with life abroad. I rarely had opportunities to travel, so the world beyond Taiwan felt distant and full of possibility. As I grew older, I began to understand that if I wanted to see a bigger world, I would have to take the first step myself.</span>
-            <span data-lang="ja">子どもの頃の私は、海外で暮らすことに素朴な憧れを持っていました。海外へ行く機会はほとんどなく、台湾の外の世界は遠く、可能性に満ちた場所のように感じていました。大人になるにつれて、もっと広い世界を見たいなら、まず自分自身で一歩を踏み出す必要があると考えるようになりました。</span>
-            <span data-lang="zh">小時候的我，對「海外生活」有一種很單純的嚮往。那時很少有機會出國，台灣以外的世界對我來說既遙遠，又充滿可能。長大後我慢慢明白，如果真的想看看更大的世界，很多時候只能先靠自己踏出第一步。</span>
-          </p>
-          <p>
-            <span data-lang="en">Once I actually left Taiwan, I learned that living abroad was not only about novelty and freedom. Moving through China, Hong Kong and Japan meant repeatedly learning new cultures, working styles and everyday routines. There were moments of uncertainty and difficulty, but those experiences taught me that starting again is not something to fear—and showed me how much I could adapt and keep moving forward.</span>
-            <span data-lang="ja">実際に台湾を離れてみると、海外生活は新鮮さや自由だけではないことも知りました。中国、香港、日本へと移るたびに、文化、仕事の進め方、日常生活を一から理解し直す必要がありました。不安や大変さもありましたが、その経験を通して、もう一度始めることを恐れなくなり、自分がどれだけ適応し前へ進めるのかを知ることができました。</span>
-            <span data-lang="zh">真正離開台灣之後，我才發現海外生活並不只有新鮮與自由。從中國、香港到日本，每一次移動，都代表重新理解文化、工作方式與日常生活。過程中當然也有不確定與辛苦，但正是這些經驗，讓我不再害怕重新開始，也更知道自己可以適應多少、走多遠。</span>
-          </p>
-          <blockquote class="about-story-quote">
-            <span data-lang="en">“I am living the overseas life that my younger self once admired.”</span>
-            <span data-lang="ja">「今の私は、子どもの頃の自分が憧れていた海外生活を送っています。」</span>
-            <span data-lang="zh">「我正在過著小時候的我所羨慕的海外生活。」</span>
-          </blockquote>
-          <p>
-            <span data-lang="en">To me, that sentence does not mean life is perfect. It reminds me that the girl who once thought the wider world was very far away eventually reached a place she had once imagined, one decision at a time. That journey continues to shape how I learn, work and explore what comes next.</span>
-            <span data-lang="ja">この言葉は、今の生活が完璧だという意味ではありません。かつて広い世界を遠く感じていた自分が、一つひとつの選択を重ねながら、いつか思い描いていた場所まで本当に歩いてきたことを思い出させてくれる言葉です。この経験は、今も私の学び方、働き方、そして次の挑戦への向き合い方につながっています。</span>
-            <span data-lang="zh">這句話並不是說現在的生活完美，而是提醒我：那個曾經覺得外面的世界很遙遠的小女孩，真的靠著一次次選擇，一步一步走到了自己曾經嚮往的地方。這段路，也持續影響著我現在學習、工作，以及面對下一個挑戰的方式。</span>
-          </p>
-        </div>
-      </details>'''
-
           pattern = re.compile(r'(<div class="about-bridge">.*?</div>)', re.S)
           s, n = pattern.subn(lambda m: m.group(1) + '\n' + story, s, count=1)
           if n != 1:
               raise SystemExit('About section could not be located')
-
-          css = '''
-/* V57 expandable About story */
-.about-story-details{
-  margin-top:10px;
-  border-top:1px solid rgba(78,61,82,.10);
-}
-.about-story-details summary{
-  list-style:none;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  width:100%;
-  padding:12px 2px 4px;
-  cursor:pointer;
-  color:var(--mauve);
-  font-size:12px;
-  font-weight:800;
-  letter-spacing:.03em;
-}
-.about-story-details summary::-webkit-details-marker{display:none}
-.story-label-open{display:none}
-.about-story-details[open] .story-label-closed{display:none}
-.about-story-details[open] .story-label-open{display:inline}
-.story-toggle-icon{
-  flex:0 0 auto;
-  font-size:20px;
-  line-height:1;
-  font-weight:400;
-  transition:transform .2s ease;
-}
-.about-story-details[open] .story-toggle-icon{transform:rotate(45deg)}
-.about-story-content{
-  max-width:1040px;
-  padding:12px 0 4px;
-}
-.about-story-content p{
-  margin:0 0 14px;
-  color:#625765;
-  font-size:14px;
-  line-height:1.85;
-}
-.about-story-quote{
-  margin:18px 0;
-  padding:15px 18px;
-  border-left:3px solid rgba(185,147,97,.62);
-  background:rgba(248,243,248,.72);
-  color:#514652;
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:18px;
-  line-height:1.65;
-}
-@media(max-width:720px){
-  .about-story-details summary{padding-top:10px;font-size:11.5px}
-  .about-story-content{padding-top:10px}
-  .about-story-content p{font-size:13px;line-height:1.75}
-  .about-story-quote{font-size:16px;padding:13px 14px;margin:15px 0}
-}
-'''
           if '/* V57 expandable About story */' not in s:
               s = s.replace('</style>', css + '\n</style>', 1)
-
           p.write_text(s, encoding='utf-8')
           PY
 
