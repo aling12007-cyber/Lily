@@ -1,0 +1,70 @@
+name: Install cartoon profile portrait
+
+on:
+  push:
+    paths:
+      - .github/workflows/install-cartoon-profile.yml
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Rebuild cartoon portrait asset
+        run: |
+          mkdir -p assets
+          : > assets/cartoon-profile.webp
+          for sha in \
+            10e6310f6b6c5e7a33406c24bed87951254b077a \
+            9ec1f804bbf5e2a1c04f0d103ca5f06f249af67d \
+            ecd43de2c81971321c5e20929209653effc86a35
+          do
+            gh api "repos/${GITHUB_REPOSITORY}/git/blobs/${sha}" --jq '.content' | tr -d '\n' | base64 -d >> assets/cartoon-profile.webp
+          done
+          test -s assets/cartoon-profile.webp
+
+      - name: Replace hero photo with cartoon portrait
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          pattern = re.compile(r'(<div class="photo-shell"><img\s+src=")data:image/[^;\"]+;base64,[^\"]+(\")')
+          s, n = pattern.subn(r'\1assets/cartoon-profile.webp\2', s, count=1)
+          if n != 1:
+              pattern = re.compile(r'(<div class="photo-shell"><img\s+src=")[^\"]+(\")')
+              s, n = pattern.subn(r'\1assets/cartoon-profile.webp\2', s, count=1)
+          if n != 1:
+              raise SystemExit('Hero portrait image could not be located')
+
+          css = '''
+/* V56 cartoon profile portrait */
+.photo-shell img{
+  object-fit:contain!important;
+  object-position:center bottom!important;
+  background:transparent!important;
+}
+'''
+          if '/* V56 cartoon profile portrait */' not in s:
+              s = s.replace('</style>', css + '\n</style>', 1)
+
+          p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Commit website update
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html assets/cartoon-profile.webp
+          git rm .github/workflows/install-cartoon-profile.yml
+          git commit -m 'Replace profile photo with cartoon portrait'
+          git push
