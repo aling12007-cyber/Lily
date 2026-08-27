@@ -1,0 +1,193 @@
+name: Refine portfolio for recruiter readability
+
+on:
+  push:
+    paths:
+      - '.github/workflows/refine-portfolio.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  refine:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Refine portfolio content
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          def repl(old, new, label):
+              global s
+              if old not in s:
+                  raise SystemExit(f'Could not find: {label}')
+              s = s.replace(old, new, 1)
+
+          repl('<meta name="description" content="LIN YULING — Accounting & Finance Portfolio">',
+               '<meta name="description" content="LIN YULING — Senior Accounting Specialist in Tokyo with 11+ years across accounting, audit, financial reporting and process improvement.">',
+               'meta description')
+          repl('<title>LIN YULING | Editorial Portfolio</title>',
+               '<title>LIN YULING | Senior Accounting Specialist | Tokyo</title>',
+               'page title')
+
+          old_nav = '''      <a href="#profile"><span data-lang="en">About</span><span data-lang="ja">私について</span><span data-lang="zh">關於我</span></a>
+      <a href="#story"><span data-lang="en">Story</span><span data-lang="ja">歩み</span><span data-lang="zh">故事</span></a>
+      <a href="#experience"><span data-lang="en">Career</span><span data-lang="ja">職歴</span><span data-lang="zh">職涯</span></a>
+      <a href="#expertise"><span data-lang="en">Strengths</span><span data-lang="ja">強み</span><span data-lang="zh">強項</span></a>
+      <a href="#life"><span data-lang="en">Life</span><span data-lang="ja">日常</span><span data-lang="zh">生活</span></a>
+      <a href="#contact"><span data-lang="en">Now</span><span data-lang="ja">現在</span><span data-lang="zh">現在</span></a>'''
+          new_nav = '''      <a href="#profile"><span data-lang="en">About</span><span data-lang="ja">私について</span><span data-lang="zh">關於我</span></a>
+      <a href="#experience"><span data-lang="en">Career</span><span data-lang="ja">職歴</span><span data-lang="zh">職涯</span></a>
+      <a href="#expertise"><span data-lang="en">Strengths</span><span data-lang="ja">強み</span><span data-lang="zh">強項</span></a>
+      <a href="#story"><span data-lang="en">Story</span><span data-lang="ja">歩み</span><span data-lang="zh">故事</span></a>
+      <a href="#life"><span data-lang="en">Life</span><span data-lang="ja">日常</span><span data-lang="zh">生活</span></a>
+      <a href="#contact"><span data-lang="en">Now</span><span data-lang="ja">現在</span><span data-lang="zh">現在</span></a>'''
+          repl(old_nav, new_nav, 'navigation')
+
+          repl('<div class="hero-role">Senior Accounting Specialist combining <em>audit expertise, international experience and IT adaptability.</em></div>',
+               '<div class="hero-role">Senior Accounting Specialist <em>in Tokyo</em> with 11+ years across accounting, audit, financial reporting and process improvement.</div>',
+               'English hero role')
+          repl('<div class="hero-desc">Accounting & Finance professional with 11+ years of experience across audit firms and operating companies, including PwC audit, IFRS financial reporting, internal control and cross-border coordination across Taiwan, China, Hong Kong and Japan.</div>',
+               '<div class="hero-desc">Experience across PwC audit and operating companies, with IFRS reporting, internal control, system adaptability and cross-border coordination across Taiwan, China, Hong Kong and Japan.</div>',
+               'English hero description')
+          repl('<div class="hero-role">監査経験・国際実務・IT対応力を強みにする<em>シニア経理スペシャリスト。</em></div>',
+               '<div class="hero-role">東京を拠点に、会計・監査・財務報告・業務改善で11年以上の経験を持つ<em>シニア経理スペシャリスト。</em></div>',
+               'Japanese hero role')
+          repl('<div class="hero-desc">監査法人および事業会社で11年以上の実務経験があり、PwCでの監査、IFRS財務報告、内部統制、台湾・中国・香港・日本にまたがる国際調整業務を経験してきました。</div>',
+               '<div class="hero-desc">PwCでの監査および事業会社での実務を通じ、IFRS財務報告、内部統制、システム対応、台湾・中国・香港・日本にまたがる国際調整を経験してきました。</div>',
+               'Japanese hero description')
+          repl('<div class="hero-role">結合審計背景、跨國經驗與 IT 適應力的<em>資深會計專員。</em></div>',
+               '<div class="hero-role">以東京為據點，具備 11 年以上會計、審計、財務報告與流程改善經驗的<em>資深會計專員。</em></div>',
+               'Chinese hero role')
+          repl('<div class="hero-desc">具備 11 年以上會計與審計實務經驗，涵蓋 PwC 審計、IFRS 財務報告、內部控制，以及台灣、中國、香港與日本之間的跨國協調經驗。</div>',
+               '<div class="hero-desc">歷經 PwC 審計與企業端會計實務，涵蓋 IFRS 財務報告、內部控制、系統適應，以及台灣、中國、香港與日本之間的跨國協調。</div>',
+               'Chinese hero description')
+
+          old_actions = '''      <div class="actions">
+        <a class="btn primary" href="mailto:aling12007@icloud.com"><span data-lang="en">Contact</span><span data-lang="ja">お問い合わせ</span><span data-lang="zh">聯絡我</span></a>
+        <a class="btn" href="https://www.linkedin.com/in/yu-ling-l-0a185a166" target="_blank" rel="noopener">LinkedIn</a>
+      </div>'''
+          new_actions = '''      <div class="hero-facts" aria-label="Career highlights">
+        <span>Tokyo, Japan</span>
+        <span><span data-lang="en">11+ years</span><span data-lang="ja">実務経験11年以上</span><span data-lang="zh">11+ 年經驗</span></span>
+        <span>PwC · IFRS</span>
+        <span>Taiwan · China · Hong Kong · Japan</span>
+      </div>
+
+      <div class="actions">
+        <a class="btn primary" href="#experience"><span data-lang="en">View Career</span><span data-lang="ja">職歴を見る</span><span data-lang="zh">查看職涯</span></a>
+        <a class="btn" href="https://www.linkedin.com/in/yu-ling-l-0a185a166" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="mailto:aling12007@icloud.com"><span data-lang="en">Email</span><span data-lang="ja">メール</span><span data-lang="zh">Email</span></a>
+      </div>'''
+          repl(old_actions, new_actions, 'hero actions')
+
+          # Tighten the most personal part of the story and connect it to professional qualities.
+          repl('I was born and raised in Dajia, a quiet town in Taichung, Taiwan. My father passed away when I was five, and my mother supported the family while raising three children on her own. Growing up in a single-parent household, my siblings and I learned independence early and became accustomed to facing everyday life on our own.',
+               'I was born and raised in Dajia, Taichung. After losing my father at five, I grew up in a single-parent household where independence became part of everyday life. That early responsibility shaped the resilience and self-reliance I carry into my work today.',
+               'English story 1')
+          repl('私は台湾・台中市大甲区という穏やかな町で生まれ育ちました。5歳の時に父を亡くし、母が一人で家計を支えながら3人の子どもを育ててくれました。母子家庭で育った私たち兄弟姉妹は、自然と早い時期から自立し、自分で生活に向き合うことを学びました。',
+               '私は台湾・台中市大甲区で生まれ育ちました。5歳で父を亡くし、母子家庭で育つ中で、自立することが自然と日常の一部になりました。その経験が、今の仕事にもつながる粘り強さと自立心の土台になっています。',
+               'Japanese story 1')
+          repl('我出生、成長於台灣台中市大甲區，一個純樸安靜的小鎮。五歲時父親早逝，母親一個人扛起家計，也獨自照顧三個孩子。成長於單親家庭的我們，因此很早就學會獨立，也更早習慣靠自己面對生活。',
+               '我出生、成長於台灣台中市大甲區。五歲時父親早逝，在單親家庭成長的過程中，獨立很早就成為生活的一部分。這段經歷也塑造了我帶進工作中的韌性與自我驅動力。',
+               'Chinese story 1')
+          repl('Because I had few opportunities to travel abroad when I was young, I gradually developed a strong longing to experience life in another country. What once felt distant became a goal: I wanted to leave the familiar, see how people lived elsewhere and discover what kind of life I could build for myself.',
+               'Growing up with few opportunities to travel abroad made me curious about life beyond Taiwan. Over time, that curiosity became a goal: to step outside the familiar, understand different cultures and discover what I could build for myself.',
+               'English story 2')
+          repl('子どもの頃は海外へ行く機会がほとんどなかったからこそ、成長するにつれて海外生活への憧れが強くなっていきました。慣れた場所を離れ、違う土地で人々がどのように暮らしているのかを知り、自分自身がどんな人生を築けるのか確かめてみたいと思うようになりました。',
+               '子どもの頃に海外へ行く機会が少なかったからこそ、台湾の外の暮らしへの好奇心が強くなりました。その好奇心はやがて、慣れた環境を離れ、異なる文化を理解し、自分の可能性を確かめたいという目標に変わりました。',
+               'Japanese story 2')
+          repl('也許正因為從小幾乎沒有出國的機會，長大後的我對海外生活一直有很深的嚮往。原本遙遠的想像，慢慢變成一個目標：想離開熟悉的環境，看看不同地方的人如何生活，也想知道自己能為人生創造什麼樣的可能。',
+               '因為從小很少有出國的機會，我反而對台灣以外的生活一直充滿好奇。這份好奇後來變成目標：走出熟悉的環境、理解不同文化，也看看自己能創造多少可能。',
+               'Chinese story 2')
+
+          # Make strengths evidence-led without inventing performance numbers.
+          repl('<span data-lang="en">11+ years of accounting experience across multiple companies and industries. I quickly understand different operating environments and turn practical issues into workable solutions.</span>',
+               '<span data-lang="en"><strong>Evidence:</strong> 11+ years across audit firms and operating companies, adapting to different industries, accounting environments and cross-border operations.</span>',
+               'strength 1 en')
+          repl('<span data-lang="ja">11年以上にわたり、複数の企業・業界で経理業務を経験。異なる事業環境や業務プロセスを素早く理解し、実務上の課題を実行可能な解決策へつなげます。</span>',
+               '<span data-lang="ja"><strong>実績:</strong> 監査法人と事業会社を通じて11年以上、複数の業界・会計環境・国際業務に適応してきました。</span>',
+               'strength 1 ja')
+          repl('<span data-lang="zh">具備 11 年以上跨公司、跨產業的會計經驗，能快速理解不同營運環境與流程，並將實務問題轉化為可執行的解決方案。</span>',
+               '<span data-lang="zh"><strong>經驗證明：</strong> 11 年以上橫跨事務所與企業端，持續適應不同產業、會計環境與跨國營運需求。</span>',
+               'strength 1 zh')
+
+          repl('<span data-lang="en">Experienced with varied accounting systems and digital tools. I learn unfamiliar software quickly and apply it effectively in daily operations.</span>',
+               '<span data-lang="en"><strong>Evidence:</strong> Hands-on use of accounting / ERP systems, Excel and AI tools across changing work environments.</span>',
+               'strength 2 en')
+          repl('<span data-lang="ja">各種会計システムやデジタルツールへの適応力が高く、未経験のソフトでも短期間で操作を習得し、実務に活用できます。</span>',
+               '<span data-lang="ja"><strong>実績:</strong> 会計 / ERPシステム、Excel、AIツールを、異なる業務環境の中で実務に活用してきました。</span>',
+               'strength 2 ja')
+          repl('<span data-lang="zh">熟悉各類會計系統與數位工具，對新軟體具備良好的學習力與適應力，即使未曾使用，也能快速掌握並應用於工作。</span>',
+               '<span data-lang="zh"><strong>經驗證明：</strong> 在不同工作環境中實際運用會計 / ERP 系統、Excel 與 AI 工具。</span>',
+               'strength 2 zh')
+
+          repl('<span data-lang="en">When errors occur, I systematically trace the source and impact, resolve the root cause, and implement improvements to reduce recurrence.</span>',
+               '<span data-lang="en"><strong>Evidence:</strong> Audit, financial reporting and internal-control experience built around tracing discrepancies, assessing impact and addressing root causes.</span>',
+               'strength 3 en')
+          repl('<span data-lang="ja">エラー発生時には、発生源と影響範囲を体系的に確認し、根本原因から改善することで再発防止につなげます。</span>',
+               '<span data-lang="ja"><strong>実績:</strong> 監査、財務報告、内部統制の経験を通じ、差異の原因・影響範囲を確認し、根本原因から対応してきました。</span>',
+               'strength 3 ja')
+          repl('<span data-lang="zh">發生錯誤時，能系統性追查問題來源與影響範圍，從根本原因進行改善，並降低相同問題再次發生的可能性。</span>',
+               '<span data-lang="zh"><strong>經驗證明：</strong> 審計、財務報告與內部控制經驗，讓我習慣追查差異來源、評估影響並從根因處理問題。</span>',
+               'strength 3 zh')
+
+          repl('<span data-lang="en">I simplify complex workflows through tools, systems and practical strategies, making processes clearer and more efficient while maintaining accuracy and control.</span>',
+               '<span data-lang="en"><strong>Evidence:</strong> Practical use of systems, Excel and AI tools to simplify recurring accounting work while preserving accuracy and control.</span>',
+               'strength 4 en')
+          repl('<span data-lang="ja">ツールやシステムを活用し、正確性と管理性を保ちながら、複雑な業務フローを分かりやすく効率的な形へ整理・簡素化します。</span>',
+               '<span data-lang="ja"><strong>実績:</strong> システム、Excel、AIツールを活用し、正確性と統制を保ちながら定型的な経理業務を整理・簡素化しています。</span>',
+               'strength 4 ja')
+          repl('<span data-lang="zh">擅長運用工具、系統與工作策略，在維持正確性與管理品質的前提下，將繁複流程整理為更清楚、人性化且高效率的作業方式。</span>',
+               '<span data-lang="zh"><strong>經驗證明：</strong> 實際運用系統、Excel 與 AI 工具簡化重複性會計工作，同時維持正確性與控制品質。</span>',
+               'strength 4 zh')
+
+          css = '''
+
+/* V53 recruiter-first refinement */
+.hero-facts{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:16px;
+}
+.hero-facts > span{
+  display:inline-flex;
+  align-items:center;
+  min-height:30px;
+  padding:0 10px;
+  border-radius:999px;
+  border:1px solid rgba(167,127,157,.14);
+  background:rgba(255,255,255,.64);
+  color:#756675;
+  font-size:10.5px;
+  font-weight:700;
+}
+.strength-card p strong{
+  color:#655565;
+  font-weight:800;
+}
+@media(max-width:720px){
+  .hero-facts{margin-top:12px;gap:5px}
+  .hero-facts > span{font-size:9.5px;min-height:28px;padding:0 8px}
+  .actions{margin-top:16px}
+}
+'''
+          repl('\n</style>', css + '\n</style>', 'style closing tag')
+
+          p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Commit changes and remove temporary workflow
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git rm .github/workflows/refine-portfolio.yml
+          git commit -m 'Refine portfolio for recruiters'
+          git push
