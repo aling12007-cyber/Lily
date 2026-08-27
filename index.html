@@ -2197,6 +2197,12 @@ span[data-lang].show{display:inline}
   .about-story-content p{font-size:13px;line-height:1.75}
   .about-story-quote{font-size:16px;padding:13px 14px;margin:15px 0}
 }
+/* V58 traits + collapsed secondary career */
+.about-trait-tags{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 6px}
+.about-trait{display:inline-flex;align-items:center;min-height:28px;padding:5px 10px;border:1px solid rgba(167,127,157,.16);border-radius:999px;background:rgba(255,255,255,.72);color:#705a6c;font-size:11px;font-weight:750;letter-spacing:.01em}
+.career-secondary-toggle{min-height:36px;padding:0 13px;border:1px solid rgba(78,61,82,.12);background:rgba(255,255,255,.82);color:var(--muted);border-radius:999px;font:inherit;font-size:11px;font-weight:700;cursor:pointer}
+.career-list:not(.show-secondary) .career-entry:not(.important){display:none}
+@media(max-width:720px){.about-trait-tags{gap:6px;margin-top:8px}.about-trait{font-size:10.5px;min-height:26px;padding:4px 9px}.career-secondary-toggle{min-height:34px;padding:0 11px;font-size:10.5px}}
 </style>
 </head>
 <body>
@@ -2305,6 +2311,16 @@ span[data-lang].show{display:inline}
           <span data-lang="zh">我出生、成長於台中大甲，五歲時父親早逝，讓我很早就學會獨立。因為對外面的世界充滿好奇，我後來選擇離開熟悉的環境，職涯也從台灣延伸到中國、香港與日本。一次次面對不同文化、工作方式與生活挑戰，讓我更懂得適應、溝通與持續學習。現在我在東京生活與工作，持續累積會計專業，也相信每一次跨出舒適圈的選擇，都讓我更接近自己想成為的樣子。</span>
         </p>
       </div>
+            <div class="about-trait-tags" aria-label="Personal traits">
+        <span class="about-trait"><span data-lang="en">Independent</span><span data-lang="ja">自立</span><span data-lang="zh">獨立</span></span>
+        <span class="about-trait"><span data-lang="en">Sincere</span><span data-lang="ja">誠実</span><span data-lang="zh">真誠</span></span>
+        <span class="about-trait"><span data-lang="en">Responsible</span><span data-lang="ja">責任感</span><span data-lang="zh">責任感</span></span>
+        <span class="about-trait"><span data-lang="en">Principled</span><span data-lang="ja">原則を大切にする</span><span data-lang="zh">有原則</span></span>
+        <span class="about-trait"><span data-lang="en">Empathetic</span><span data-lang="ja">共感力</span><span data-lang="zh">同理心</span></span>
+        <span class="about-trait"><span data-lang="en">Observant</span><span data-lang="ja">観察力</span><span data-lang="zh">觀察力</span></span>
+        <span class="about-trait"><span data-lang="en">Curious</span><span data-lang="ja">好奇心</span><span data-lang="zh">好奇心</span></span>
+        <span class="about-trait"><span data-lang="en">Slow to warm up</span><span data-lang="ja">ゆっくり打ち解ける</span><span data-lang="zh">慢熟</span></span>
+      </div>
       <details class="about-story-details">
         <summary>
           <span class="story-label-closed">
@@ -2372,6 +2388,10 @@ span[data-lang].show{display:inline}
         <button class="career-expand-all" type="button" aria-expanded="false">
           <span class="state-closed"><span data-lang="en">Expand all</span><span data-lang="ja">すべて展開</span><span data-lang="zh">全部展開</span></span>
           <span class="state-open"><span data-lang="en">Collapse all</span><span data-lang="ja">すべて閉じる</span><span data-lang="zh">全部收起</span></span>
+        </button>
+        <button class="career-secondary-toggle" type="button" aria-expanded="false">
+          <span class="state-closed"><span data-lang="en">Show other roles</span><span data-lang="ja">その他の職歴を表示</span><span data-lang="zh">展開其他職涯</span></span>
+          <span class="state-open"><span data-lang="en">Hide other roles</span><span data-lang="ja">その他の職歴を隠す</span><span data-lang="zh">收起其他職涯</span></span>
         </button>
       </div>
 
@@ -2559,12 +2579,13 @@ span[data-lang].show{display:inline}
     <div class="career-resp" data-lang="zh"><ul><li>財務報表編製與確認。</li><li>經營成果報告。</li><li>新進員工工作指導。</li></ul></div>
   </div>
 </article>
-<article class="career-entry">
+<article class="career-entry important">
   <div class="career-summary">
     <div class="career-date">2018.07 — 2019.09</div>
     <div class="career-main">
       <div class="career-title-row">
         <h3 class="company-name"><span data-lang="en">Jumbo Technology Co., Ltd.</span><span data-lang="ja">Jumbo Technology Co., Ltd.（尊博科技）</span><span data-lang="zh">尊博科技股份有限公司</span></h3>
+        <svg class="milestone-star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8 14.8 8.5l6.3.9-4.55 4.43 1.07 6.26L12 17.15l-5.62 2.94 1.07-6.26L2.9 9.4l6.3-.9L12 2.8Z"/></svg>
         
       </div>
       <div class="career-meta">
@@ -3353,6 +3374,17 @@ if(expandAllButton){
 
 setLang(localStorage.getItem('portfolio-lang') || 'en');
 document.getElementById('year').textContent = new Date().getFullYear();
+
+(() => {
+  const button = document.querySelector('.career-secondary-toggle');
+  const list = document.querySelector('.career-list');
+  if(!button || !list) return;
+  button.addEventListener('click', () => {
+    const expanded = button.getAttribute('aria-expanded') !== 'true';
+    button.setAttribute('aria-expanded', String(expanded));
+    list.classList.toggle('show-secondary', expanded);
+  });
+})();
 </script>
 </body>
 </html>
