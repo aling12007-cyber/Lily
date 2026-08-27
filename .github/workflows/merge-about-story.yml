@@ -1,0 +1,107 @@
+name: Merge About and Story sections
+
+on:
+  push:
+    paths:
+      - '.github/workflows/merge-about-story.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  merge-about-story:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Merge About and Story into one concise section
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          # Remove the standalone Story navigation item.
+          s = s.replace('      <a href="#story"><span data-lang="en">Story</span><span data-lang="ja">歩み</span><span data-lang="zh">故事</span></a>\n', '', 1)
+
+          combined = '''<section class="section" id="profile">
+  <div class="section-grid">
+    <div class="section-no">01</div>
+    <div>
+      <div class="section-title">
+        <h2>
+          <span data-lang="en">About Me</span>
+          <span data-lang="ja">私について</span>
+          <span data-lang="zh">關於我</span>
+        </h2>
+        <p>
+          <span data-lang="en">From Dajia, Taichung to Tokyo, my career and life have been shaped by choosing to step beyond familiar surroundings.</span>
+          <span data-lang="ja">台中・大甲から東京へ。慣れた環境を一歩ずつ離れる選択が、今のキャリアと人生を形づくってきました。</span>
+          <span data-lang="zh">從台中大甲到東京，職涯與生活都在一次次走出熟悉環境的選擇中逐漸成形。</span>
+        </p>
+      </div>
+      <div class="rule"></div>
+
+      <div class="about-bridge">
+        <p>
+          <span data-lang="en">I was born and raised in Dajia, Taichung, and learned independence early after losing my father at five. Curiosity about the world beyond Taiwan later led me to leave familiar surroundings, with my career taking me through Taiwan, China, Hong Kong and Japan. Adapting to different cultures, ways of working and everyday challenges taught me resilience, communication and continuous learning. Today I live and work in Tokyo, continuing to build my accounting expertise while believing that each step beyond my comfort zone brings me closer to the person I want to become.</span>
+          <span data-lang="ja">私は台中・大甲で生まれ育ち、5歳で父を亡くした経験から早くから自立することを学びました。台湾の外の世界への好奇心をきっかけに慣れた環境を離れ、キャリアは台湾、中国、香港、日本へと広がりました。異なる文化や仕事の進め方、生活上の課題に向き合う中で、適応力、コミュニケーション力、学び続ける姿勢を身につけました。現在は東京で暮らし働きながら経理の専門性を高め、コンフォートゾーンの外へ踏み出す一歩一歩が、なりたい自分に近づく道だと考えています。</span>
+          <span data-lang="zh">我出生、成長於台中大甲，五歲時父親早逝，讓我很早就學會獨立。因為對外面的世界充滿好奇，我後來選擇離開熟悉的環境，職涯也從台灣延伸到中國、香港與日本。一次次面對不同文化、工作方式與生活挑戰，讓我更懂得適應、溝通與持續學習。現在我在東京生活與工作，持續累積會計專業，也相信每一次跨出舒適圈的選擇，都讓我更接近自己想成為的樣子。</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+'''
+
+          pattern = re.compile(r'<section class="section" id="profile">.*?(?=<section class="section" id="experience">)', re.S)
+          s, n = pattern.subn(combined, s, count=1)
+          if n != 1:
+              raise SystemExit(f'Expected to replace profile/story block once, replaced {n}')
+
+          # Renumber the remaining main sections after removing Story.
+          renumber = {
+              'experience': ('03', '02'),
+              'education': ('04', '03'),
+              'expertise': ('05', '04'),
+              'life': ('06', '05'),
+              'contact': ('07', '06'),
+          }
+          for section_id, (old, new) in renumber.items():
+              pat = re.compile(r'(<section class="section" id="' + re.escape(section_id) + r'">\s*<div class="section-grid">\s*<div class="section-no">)' + old + r'(</div>)')
+              s, count = pat.subn(r'\g<1>' + new + r'\2', s, count=1)
+              if count != 1:
+                  raise SystemExit(f'Could not renumber section {section_id}')
+
+          # Make the merged paragraph use the full available width and read as one clean block.
+          css = '''\n/* V54 merged About + Story */
+#profile .about-bridge{
+  max-width:none!important;
+  padding:22px 24px!important;
+}
+#profile .about-bridge p{
+  max-width:1080px;
+  font-size:15px!important;
+  line-height:1.9!important;
+}
+@media(max-width:720px){
+  #profile .about-bridge{padding:16px!important}
+  #profile .about-bridge p{font-size:13px!important;line-height:1.78!important}
+}
+'''
+          s = s.replace('\n</style>', css + '\n</style>', 1)
+
+          p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Commit merged section
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git rm .github/workflows/merge-about-story.yml
+          git commit -m 'Merge About and Story into one concise section'
+          git push
