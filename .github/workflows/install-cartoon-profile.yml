@@ -55,14 +55,7 @@ jobs:
           if n != 1:
               raise SystemExit('Hero portrait image could not be located')
 
-          css = '''
-/* V56 cartoon profile portrait */
-.photo-shell img{
-  object-fit:contain!important;
-  object-position:center bottom!important;
-  background:transparent!important;
-}
-'''
+          css = '\n/* V56 cartoon profile portrait */\n.photo-shell img{object-fit:contain!important;object-position:center bottom!important;background:transparent!important;}\n'
           if '/* V56 cartoon profile portrait */' not in s:
               s = s.replace('</style>', css + '\n</style>', 1)
           p.write_text(s, encoding='utf-8')
