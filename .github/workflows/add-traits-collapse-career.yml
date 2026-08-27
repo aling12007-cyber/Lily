@@ -1,0 +1,86 @@
+name: Add traits and collapse secondary career
+
+on:
+  push:
+    paths:
+      - '.github/workflows/add-traits-collapse-career.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Update About traits and career visibility
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64
+
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          tags = base64.b64decode('PGRpdiBjbGFzcz0iYWJvdXQtdHJhaXQtdGFncyIgYXJpYS1sYWJlbD0iUGVyc29uYWwgdHJhaXRzIj4KICA8c3BhbiBjbGFzcz0iYWJvdXQtdHJhaXQiPjxzcGFuIGRhdGEtbGFuZz0iZW4iPkluZGVwZW5kZW50PC9zcGFuPjxzcGFuIGRhdGEtbGFuZz0iamEiPuiHquerizwvc3Bhbj48c3BhbiBkYXRhLWxhbmc9InpoIj7njajnq4s8L3NwYW4+PC9zcGFuPgogIDxzcGFuIGNsYXNzPSJhYm91dC10cmFpdCI+PHNwYW4gZGF0YS1sYW5nPSJlbiI+U2luY2VyZTwvc3Bhbj48c3BhbiBkYXRhLWxhbmc9ImphIj7oqqDlrp88L3NwYW4+PHNwYW4gZGF0YS1sYW5nPSJ6aCI+55yf6KqgPC9zcGFuPjwvc3Bhbj4KICA8c3BhbiBjbGFzcz0iYWJvdXQtdHJhaXQiPjxzcGFuIGRhdGEtbGFuZz0iZW4iPlJlc3BvbnNpYmxlPC9zcGFuPjxzcGFuIGRhdGEtbGFuZz0iamEiPuiyrOS7u+aEnzwvc3Bhbj48c3BhbiBkYXRhLWxhbmc9InpoIj7osqzku7vmhJ88L3NwYW4+PC9zcGFuPgogIDxzcGFuIGNsYXNzPSJhYm91dC10cmFpdCI+PHNwYW4gZGF0YS1sYW5nPSJlbiI+UHJpbmNpcGxlZDwvc3Bhbj48c3BhbiBkYXRhLWxhbmc9ImphIj7ljp/liYfjgpLlpKfliIfjgavjgZnjgos8L3NwYW4+PHNwYW4gZGF0YS1sYW5nPSJ6aCI+5pyJ5Y6f5YmHPC9zcGFuPjwvc3Bhbj4KICA8c3BhbiBjbGFzcz0iYWJvdXQtdHJhaXQiPjxzcGFuIGRhdGEtbGFuZz0iZW4iPkVtcGF0aGV0aWM8L3NwYW4+PHNwYW4gZGF0YS1sYW5nPSJqYSI+5YWx5oSf5YqbPC9zcGFuPjxzcGFuIGRhdGEtbGFuZz0iemgiPuWQjOeQhuW/gzwvc3Bhbj48L3NwYW4+CiAgPHNwYW4gY2xhc3M9ImFib3V0LXRyYWl0Ij48c3BhbiBkYXRhLWxhbmc9ImVuIj5PYnNlcnZhbnQ8L3NwYW4+PHNwYW4gZGF0YS1sYW5nPSJqYSI+6Kaz5a+f5YqbPC9zcGFuPjxzcGFuIGRhdGEtbGFuZz0iemgiPuingOWvn+WKmzwvc3Bhbj48L3NwYW4+CiAgPHNwYW4gY2xhc3M9ImFib3V0LXRyYWl0Ij48c3BhbiBkYXRhLWxhbmc9ImVuIj5DdXJpb3VzPC9zcGFuPjxzcGFuIGRhdGEtbGFuZz0iamEiPuWlveWlh+W/gzwvc3Bhbj48c3BhbiBkYXRhLWxhbmc9InpoIj7lpb3lpYflv4M8L3NwYW4+PC9zcGFuPgogIDxzcGFuIGNsYXNzPSJhYm91dC10cmFpdCI+PHNwYW4gZGF0YS1sYW5nPSJlbiI+U2xvdyB0byB3YXJtIHVwPC9zcGFuPjxzcGFuIGRhdGEtbGFuZz0iamEiPuOChuOBo+OBj+OCiuaJk+OBoeino+OBkeOCizwvc3Bhbj48c3BhbiBkYXRhLWxhbmc9InpoIj7mhaLnhp88L3NwYW4+PC9zcGFuPgo8L2Rpdj4=').decode('utf-8')
+          secondary_button = base64.b64decode('PGJ1dHRvbiBjbGFzcz0iY2FyZWVyLXNlY29uZGFyeS10b2dnbGUiIHR5cGU9ImJ1dHRvbiIgYXJpYS1leHBhbmRlZD0iZmFsc2UiPgogIDxzcGFuIGNsYXNzPSJzdGF0ZS1jbG9zZWQiPjxzcGFuIGRhdGEtbGFuZz0iZW4iPlNob3cgb3RoZXIgcm9sZXM8L3NwYW4+PHNwYW4gZGF0YS1sYW5nPSJqYSI+44Gd44Gu5LuW44Gu6IG35q2044KS6KGo56S6PC9zcGFuPjxzcGFuIGRhdGEtbGFuZz0iemgiPuWxlemWi+WFtuS7luiBt+a2rzwvc3Bhbj48L3NwYW4+CiAgPHNwYW4gY2xhc3M9InN0YXRlLW9wZW4iPjxzcGFuIGRhdGEtbGFuZz0iZW4iPkhpZGUgb3RoZXIgcm9sZXM8L3NwYW4+PHNwYW4gZGF0YS1sYW5nPSJqYSI+44Gd44Gu5LuW44Gu6IG35q2044KS6Zqg44GZPC9zcGFuPjxzcGFuIGRhdGEtbGFuZz0iemgiPuaUtui1t+WFtuS7luiBt+a2rzwvc3Bhbj48L3NwYW4+CjwvYnV0dG9uPg==').decode('utf-8')
+          star = base64.b64decode('PHN2ZyBjbGFzcz0ibWlsZXN0b25lLXN0YXIiIHZpZXdCb3g9IjAgMCAyNCAyNCIgYXJpYS1oaWRkZW49InRydWUiPjxwYXRoIGQ9Ik0xMiAyLjggMTQuOCA4LjVsNi4zLjktNC41NSA0LjQzIDEuMDcgNi4yNkwxMiAxNy4xNWwtNS42MiAyLjk0IDEuMDctNi4yNkwyLjkgOS40bDYuMy0uOUwxMiAyLjhaIi8+PC9zdmc+').decode('utf-8')
+          css = base64.b64decode('LyogVjU4IHRyYWl0cyArIGNvbGxhcHNlZCBzZWNvbmRhcnkgY2FyZWVyICovCi5hYm91dC10cmFpdC10YWdze2Rpc3BsYXk6ZmxleDtmbGV4LXdyYXA6d3JhcDtnYXA6N3B4O21hcmdpbjoxMHB4IDAgNnB4fQouYWJvdXQtdHJhaXR7ZGlzcGxheTppbmxpbmUtZmxleDthbGlnbi1pdGVtczpjZW50ZXI7bWluLWhlaWdodDoyOHB4O3BhZGRpbmc6NXB4IDEwcHg7Ym9yZGVyOjFweCBzb2xpZCByZ2JhKDE2NywxMjcsMTU3LC4xNik7Ym9yZGVyLXJhZGl1czo5OTlweDtiYWNrZ3JvdW5kOnJnYmEoMjU1LDI1NSwyNTUsLjcyKTtjb2xvcjojNzA1YTZjO2ZvbnQtc2l6ZToxMXB4O2ZvbnQtd2VpZ2h0Ojc1MDtsZXR0ZXItc3BhY2luZzouMDFlbX0KLmNhcmVlci1zZWNvbmRhcnktdG9nZ2xle21pbi1oZWlnaHQ6MzZweDtwYWRkaW5nOjAgMTNweDtib3JkZXI6MXB4IHNvbGlkIHJnYmEoNzgsNjEsODIsLjEyKTtiYWNrZ3JvdW5kOnJnYmEoMjU1LDI1NSwyNTUsLjgyKTtjb2xvcjp2YXIoLS1tdXRlZCk7Ym9yZGVyLXJhZGl1czo5OTlweDtmb250OmluaGVyaXQ7Zm9udC1zaXplOjExcHg7Zm9udC13ZWlnaHQ6NzAwO2N1cnNvcjpwb2ludGVyfQouY2FyZWVyLWxpc3Q6bm90KC5zaG93LXNlY29uZGFyeSkgLmNhcmVlci1lbnRyeTpub3QoLmltcG9ydGFudCl7ZGlzcGxheTpub25lfQpAbWVkaWEobWF4LXdpZHRoOjcyMHB4KXsuYWJvdXQtdHJhaXQtdGFnc3tnYXA6NnB4O21hcmdpbi10b3A6OHB4fS5hYm91dC10cmFpdHtmb250LXNpemU6MTAuNXB4O21pbi1oZWlnaHQ6MjZweDtwYWRkaW5nOjRweCA5cHh9LmNhcmVlci1zZWNvbmRhcnktdG9nZ2xle21pbi1oZWlnaHQ6MzRweDtwYWRkaW5nOjAgMTFweDtmb250LXNpemU6MTAuNXB4fX0=').decode('utf-8')
+          js = base64.b64decode('KCgpID0+IHsKICBjb25zdCBidXR0b24gPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcuY2FyZWVyLXNlY29uZGFyeS10b2dnbGUnKTsKICBjb25zdCBsaXN0ID0gZG9jdW1lbnQucXVlcnlTZWxlY3RvcignLmNhcmVlci1saXN0Jyk7CiAgaWYoIWJ1dHRvbiB8fCAhbGlzdCkgcmV0dXJuOwogIGJ1dHRvbi5hZGRFdmVudExpc3RlbmVyKCdjbGljaycsICgpID0+IHsKICAgIGNvbnN0IGV4cGFuZGVkID0gYnV0dG9uLmdldEF0dHJpYnV0ZSgnYXJpYS1leHBhbmRlZCcpICE9PSAndHJ1ZSc7CiAgICBidXR0b24uc2V0QXR0cmlidXRlKCdhcmlhLWV4cGFuZGVkJywgU3RyaW5nKGV4cGFuZGVkKSk7CiAgICBsaXN0LmNsYXNzTGlzdC50b2dnbGUoJ3Nob3ctc2Vjb25kYXJ5JywgZXhwYW5kZWQpOwogIH0pOwp9KSgpOw==').decode('utf-8')
+
+          if 'about-trait-tags' not in s:
+              profile_start = s.find('<section class="section" id="profile">')
+              story_start = s.find('<details class="about-story-details">', profile_start)
+              if profile_start == -1 or story_start == -1:
+                  raise SystemExit('About section insertion point not found')
+              indented_tags = '      ' + tags.replace('\n', '\n      ') + '\n      '
+              s = s[:story_start] + indented_tags + s[story_start:]
+
+          jumbo = s.find('Jumbo Technology Co., Ltd.')
+          if jumbo == -1:
+              raise SystemExit('Jumbo Technology entry not found')
+          article_start = s.rfind('<article class="career-entry">', 0, jumbo)
+          important_start = s.rfind('<article class="career-entry important">', 0, jumbo)
+          if article_start > important_start:
+              s = s[:article_start] + '<article class="career-entry important">' + s[article_start + len('<article class="career-entry">'):]
+              jumbo = s.find('Jumbo Technology Co., Ltd.')
+          title_end = s.find('</h3>', jumbo)
+          title_row_end = s.find('</div>', title_end)
+          if title_end == -1 or title_row_end == -1:
+              raise SystemExit('Jumbo title row not found')
+          if 'milestone-star' not in s[title_end:title_row_end]:
+              s = s[:title_end + 5] + '\n        ' + star + s[title_end + 5:]
+
+          if 'career-secondary-toggle' not in s:
+              exp = s.find('class="career-expand-all"')
+              if exp == -1:
+                  raise SystemExit('Career controls not found')
+              btn_end = s.find('</button>', exp)
+              if btn_end == -1:
+                  raise SystemExit('Expand-all button end not found')
+              btn_end += len('</button>')
+              indented_button = '\n        ' + secondary_button.replace('\n', '\n        ')
+              s = s[:btn_end] + indented_button + s[btn_end:]
+
+          if '/* V58 traits + collapsed secondary career */' not in s:
+              s = s.replace('</style>', css + '\n</style>', 1)
+
+          if "document.querySelector('.career-secondary-toggle')" not in s:
+              script_end = s.rfind('</script>')
+              if script_end == -1:
+                  raise SystemExit('Script end not found')
+              s = s[:script_end] + '\n' + js + '\n' + s[script_end:]
+
+          p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Commit website update
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git rm .github/workflows/add-traits-collapse-career.yml
+          git commit -m 'Add personal traits and collapse secondary career'
+          git push
