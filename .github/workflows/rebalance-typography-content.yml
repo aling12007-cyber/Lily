@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+      - name: Correct company marker
+        run: sed -i 's/Granstar Technology Enterprise Co., Ltd./Granstar International Co., Ltd./' .github/scripts/rebalance-typography-content.py
       - name: Rebalance typography and content
         run: python .github/scripts/rebalance-typography-content.py
       - name: Commit website update
