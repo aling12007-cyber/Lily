@@ -20,6 +20,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.html
-          git rm .github/scripts/rebalance-typography-content.py .github/workflows/rebalance-typography-content.yml
+          git rm -f .github/scripts/rebalance-typography-content.py .github/workflows/rebalance-typography-content.yml
           git commit -m "Rebalance typography and reduce content noise"
           git push
