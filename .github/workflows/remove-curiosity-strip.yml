@@ -1,0 +1,23 @@
+name: Remove Life curiosity strip
+on:
+  push:
+    paths:
+      - '.github/workflows/remove-curiosity-strip.yml'
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Remove curiosity strip
+        run: python .github/scripts/remove-curiosity-strip.py
+      - name: Commit website update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git rm .github/scripts/remove-curiosity-strip.py .github/workflows/remove-curiosity-strip.yml
+          git commit -m "Remove text-only Life curiosity strip"
+          git push
