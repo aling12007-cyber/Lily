@@ -1,0 +1,23 @@
+name: Apply career click interaction
+on:
+  push:
+    paths:
+      - '.github/workflows/apply-career-click-ui.yml'
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Update career interaction
+        run: python .github/scripts/update-career-click-ui.py
+      - name: Commit website update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git rm .github/scripts/update-career-click-ui.py .github/workflows/apply-career-click-ui.yml
+          git commit -m "Make career rows clickable and center controls"
+          git push
