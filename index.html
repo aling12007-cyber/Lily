@@ -2297,6 +2297,11 @@ span[data-lang].show{display:inline}
   .career-project-highlight p{font-size:14px!important;line-height:1.68!important}
 }
 
+
+/* V64 career toolbar wording + legend alignment */
+.career-toolbar .career-legend{justify-content:flex-start!important;text-align:left!important;width:100%!important;}
+@media(max-width:720px){.career-toolbar .career-legend{justify-content:flex-start!important;text-align:left!important;}}
+
 </style>
 </head>
 <body>
@@ -2480,12 +2485,12 @@ span[data-lang].show{display:inline}
           <span data-lang="zh">重要職涯里程碑</span>
         </div>
         <button class="career-expand-all" type="button" aria-expanded="false">
-          <span class="state-closed"><span data-lang="en">Expand all</span><span data-lang="ja">すべて展開</span><span data-lang="zh">全部展開</span></span>
-          <span class="state-open"><span data-lang="en">Collapse all</span><span data-lang="ja">すべて閉じる</span><span data-lang="zh">全部收起</span></span>
+          <span class="state-closed"><span data-lang="en">Expand job details</span><span data-lang="ja">職務詳細を展開</span><span data-lang="zh">展開職務細節</span></span>
+          <span class="state-open"><span data-lang="en">Collapse job details</span><span data-lang="ja">職務詳細を閉じる</span><span data-lang="zh">收起職務細節</span></span>
         </button>
         <button class="career-secondary-toggle" type="button" aria-expanded="false">
-          <span class="state-closed"><span data-lang="en">Show other roles</span><span data-lang="ja">その他の職歴を表示</span><span data-lang="zh">展開其他職涯</span></span>
-          <span class="state-open"><span data-lang="en">Hide other roles</span><span data-lang="ja">その他の職歴を隠す</span><span data-lang="zh">收起其他職涯</span></span>
+          <span class="state-closed"><span data-lang="en">Show all experience</span><span data-lang="ja">すべての職歴を表示</span><span data-lang="zh">展開所有經歷</span></span>
+          <span class="state-open"><span data-lang="en">Show key milestones only</span><span data-lang="ja">重要な職歴のみ表示</span><span data-lang="zh">僅顯示重要職涯</span></span>
         </button>
       </div>
 
