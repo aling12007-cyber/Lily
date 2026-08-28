@@ -1,0 +1,34 @@
+name: Harmonize career typography
+on:
+  push:
+    paths:
+      - '.github/workflows/harmonize-career-typography.yml'
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Harmonize career detail typography
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          marker = '/* V62 harmonized career detail typography */'
+          css = base64.b64decode('Ci8qIFY2MiBoYXJtb25pemVkIGNhcmVlciBkZXRhaWwgdHlwb2dyYXBoeSAqLwouY2FyZWVyLWRldGFpbC1ncmlkID4gZGl2ewogIGZvbnQtc2l6ZToxNXB4IWltcG9ydGFudDsKICBsaW5lLWhlaWdodDoxLjYhaW1wb3J0YW50OwogIGNvbG9yOiM1NDRhNTchaW1wb3J0YW50Owp9Ci5jYXJlZXItZGV0YWlsLWxhYmVsewogIG1hcmdpbi1ib3R0b206NHB4IWltcG9ydGFudDsKICBmb250LXNpemU6MTEuNXB4IWltcG9ydGFudDsKICBsaW5lLWhlaWdodDoxLjM1IWltcG9ydGFudDsKICBsZXR0ZXItc3BhY2luZzouMDZlbSFpbXBvcnRhbnQ7Cn0KLm1pbGVzdG9uZS1kZXRhaWx7CiAgZm9udC1zaXplOjEzLjVweCFpbXBvcnRhbnQ7CiAgbGluZS1oZWlnaHQ6MS41NSFpbXBvcnRhbnQ7Cn0KLmNhcmVlci1yZXNwIHVsewogIGZvbnQtc2l6ZToxNXB4IWltcG9ydGFudDsKICBsaW5lLWhlaWdodDoxLjc4IWltcG9ydGFudDsKfQpAbWVkaWEobWF4LXdpZHRoOjcyMHB4KXsKICAuY2FyZWVyLWRldGFpbC1ncmlkID4gZGl2ewogICAgZm9udC1zaXplOjE0cHghaW1wb3J0YW50OwogICAgbGluZS1oZWlnaHQ6MS41NSFpbXBvcnRhbnQ7CiAgfQogIC5jYXJlZXItZGV0YWlsLWxhYmVsewogICAgZm9udC1zaXplOjEwLjVweCFpbXBvcnRhbnQ7CiAgfQogIC5taWxlc3RvbmUtZGV0YWlsewogICAgZm9udC1zaXplOjEyLjVweCFpbXBvcnRhbnQ7CiAgfQogIC5jYXJlZXItcmVzcCB1bHsKICAgIGZvbnQtc2l6ZToxNHB4IWltcG9ydGFudDsKICAgIGxpbmUtaGVpZ2h0OjEuNzIhaW1wb3J0YW50OwogIH0KfQo=').decode('utf-8')
+          if marker not in s:
+              s = s.replace('</style>', css + '\n</style>', 1)
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit website update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git rm .github/workflows/harmonize-career-typography.yml
+          git commit -m "Harmonize career detail typography"
+          git push
