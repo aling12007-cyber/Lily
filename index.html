@@ -2290,6 +2290,32 @@ span[data-lang].show{display:inline}
   #life .generated-volunteer-art img{width:60px!important;height:60px!important}
 }
 
+
+/* unified line-art style for added interests */
+#life .interest-line-icon{
+  width:58px!important;
+  height:58px!important;
+  display:grid!important;
+  place-items:center!important;
+  justify-self:center!important;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+}
+#life .interest-line-icon svg{
+  width:58px!important;
+  height:58px!important;
+  display:block!important;
+  overflow:visible!important;
+}
+@media(max-width:720px){
+  #life .interest-line-icon,
+  #life .interest-line-icon svg{
+    width:52px!important;
+    height:52px!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -3137,27 +3163,80 @@ span[data-lang].show{display:inline}
     </div>
   </article>
   <article class="interest-generated">
-    <div aria-hidden="true" style="display:grid;place-items:center;width:70px;height:70px;border-radius:18px;background:linear-gradient(135deg,rgba(245,236,242,.98),rgba(236,234,247,.98));font-size:34px;justify-self:center">📷</div>
+    <div class="interest-line-icon" aria-hidden="true">
+      <svg viewBox="0 0 72 72" role="img">
+        <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 25h10l4-6h14l4 6h6a6 6 0 0 1 6 6v22a6 6 0 0 1-6 6H18a6 6 0 0 1-6-6V31a6 6 0 0 1 6-6Z" stroke="#a77f9d" stroke-width="2"/>
+          <circle cx="37" cy="42" r="11" stroke="#a8a2d7" stroke-width="2"/>
+          <circle cx="37" cy="42" r="6" stroke="#d7a8bf" stroke-width="1.7"/>
+          <path d="M19 32h7" stroke="#b99361" stroke-width="2"/>
+          <path d="M57 14v8M53 18h8" stroke="#b99361" stroke-width="1.8"/>
+          <path d="M14 17l3 3m0-3-3 3" stroke="#a8a2d7" stroke-width="1.6"/>
+        </g>
+      </svg>
+    </div>
     <div class="interest-copy"><h4><span data-lang="en">Photography</span><span data-lang="ja">写真</span><span data-lang="zh">攝影</span></h4></div>
   </article>
 
   <article class="interest-generated">
-    <div aria-hidden="true" style="display:grid;place-items:center;width:70px;height:70px;border-radius:18px;background:linear-gradient(135deg,rgba(245,236,242,.98),rgba(236,234,247,.98));font-size:34px;justify-self:center">✈️</div>
+    <div class="interest-line-icon" aria-hidden="true">
+      <svg viewBox="0 0 72 72" role="img">
+        <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 39c8-1 17-3 26-7l13-17c2-2 5-2 7-1l-7 20 10 6c2 1 2 4 0 5l-12-2-9 13c-1 2-4 2-5 0l2-15c-9 2-17 3-25 3Z" stroke="#a77f9d" stroke-width="2"/>
+          <path d="M17 51c8 4 18 6 28 5" stroke="#a8a2d7" stroke-width="1.7" stroke-dasharray="3 4"/>
+          <path d="M56 53v7M52.5 56.5h7" stroke="#b99361" stroke-width="1.7"/>
+          <path d="M15 25l3 3m0-3-3 3" stroke="#d7a8bf" stroke-width="1.6"/>
+        </g>
+      </svg>
+    </div>
     <div class="interest-copy"><h4><span data-lang="en">Travel</span><span data-lang="ja">旅行</span><span data-lang="zh">旅行</span></h4></div>
   </article>
 
   <article class="interest-generated">
-    <div aria-hidden="true" style="display:grid;place-items:center;width:70px;height:70px;border-radius:18px;background:linear-gradient(135deg,rgba(245,236,242,.98),rgba(236,234,247,.98));font-size:34px;justify-self:center">🎾</div>
+    <div class="interest-line-icon" aria-hidden="true">
+      <svg viewBox="0 0 72 72" role="img">
+        <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="31" cy="27" rx="14" ry="18" transform="rotate(35 31 27)" stroke="#a77f9d" stroke-width="2"/>
+          <path d="M39 40l14 18M50 54l-6 5" stroke="#b99361" stroke-width="2.4"/>
+          <path d="M20 19l21 16M17 26l20 14M25 12l-8 29M32 10l-9 34" stroke="#a8a2d7" stroke-width="1" opacity=".85"/>
+          <circle cx="57" cy="20" r="6" stroke="#d7a8bf" stroke-width="2"/>
+          <path d="M53 17c2 1 4 3 7 4" stroke="#b99361" stroke-width="1.4"/>
+          <path d="M58 8v5M55.5 10.5h5" stroke="#b99361" stroke-width="1.5"/>
+        </g>
+      </svg>
+    </div>
     <div class="interest-copy"><h4><span data-lang="en">Tennis</span><span data-lang="ja">テニス</span><span data-lang="zh">網球</span></h4></div>
   </article>
 
   <article class="interest-generated">
-    <div aria-hidden="true" style="display:grid;place-items:center;width:70px;height:70px;border-radius:18px;background:linear-gradient(135deg,rgba(245,236,242,.98),rgba(236,234,247,.98));font-size:34px;justify-self:center">🐎</div>
+    <div class="interest-line-icon" aria-hidden="true">
+      <svg viewBox="0 0 72 72" role="img">
+        <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 57c4-10 4-19 1-27 5-7 11-12 19-15l6 6 8 2-4 7 4 8-7 5-8-2-5 8c-3 5-7 8-14 8Z" stroke="#a77f9d" stroke-width="2"/>
+          <path d="M27 29c6 2 12 1 18-3M25 37c7 2 13 1 19-2" stroke="#a8a2d7" stroke-width="1.7"/>
+          <path d="M43 21l-2-8 7 6M50 24l5-5" stroke="#b99361" stroke-width="1.8"/>
+          <circle cx="45" cy="29" r="1.7" fill="#b99361" stroke="none"/>
+          <path d="M15 17v7M11.5 20.5h7" stroke="#d7a8bf" stroke-width="1.6"/>
+        </g>
+      </svg>
+    </div>
     <div class="interest-copy"><h4><span data-lang="en">Horse Riding</span><span data-lang="ja">乗馬</span><span data-lang="zh">騎馬</span></h4></div>
   </article>
 
   <article class="interest-generated">
-    <div aria-hidden="true" style="display:grid;place-items:center;width:70px;height:70px;border-radius:18px;background:linear-gradient(135deg,rgba(245,236,242,.98),rgba(236,234,247,.98));font-size:34px;justify-self:center">🎨</div>
+    <div class="interest-line-icon" aria-hidden="true">
+      <svg viewBox="0 0 72 72" role="img">
+        <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M34 12c-14 0-25 10-25 23 0 14 12 25 27 25 5 0 8-3 7-7-1-4 2-7 6-7h5c6 0 10-4 10-10 0-13-13-24-30-24Z" stroke="#a77f9d" stroke-width="2"/>
+          <circle cx="23" cy="28" r="3" stroke="#d7a8bf" stroke-width="1.8"/>
+          <circle cx="32" cy="22" r="3" stroke="#a8a2d7" stroke-width="1.8"/>
+          <circle cx="42" cy="24" r="3" stroke="#b99361" stroke-width="1.8"/>
+          <circle cx="19" cy="39" r="3" stroke="#b99361" stroke-width="1.8"/>
+          <path d="M44 51l15-28M42 54l5-2 13-24-4-2-14 28Z" stroke="#a8a2d7" stroke-width="1.8"/>
+          <path d="M57 18v7M53.5 21.5h7" stroke="#b99361" stroke-width="1.6"/>
+        </g>
+      </svg>
+    </div>
     <div class="interest-copy"><h4><span data-lang="en">Painting</span><span data-lang="ja">絵画</span><span data-lang="zh">繪畫</span></h4></div>
   </article>
 
