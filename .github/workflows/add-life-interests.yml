@@ -3,7 +3,7 @@ name: Add Life Beyond Work interests
 on:
   push:
     paths:
-      - '.github/workflows/add-life-interests.yml'
+      - .github/workflows/add-life-interests.yml
 
 permissions:
   contents: write
@@ -12,67 +12,58 @@ jobs:
   update-interests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out repository
+        uses: actions/checkout@v4
+
       - name: Add interests
-        shell: python
         run: |
+          python - <<'PY'
           from pathlib import Path
 
-          path = Path('index.html')
-          text = path.read_text(encoding='utf-8')
+          path = Path("index.html")
+          text = path.read_text(encoding="utf-8")
           marker = '''  <article class="interest-generated">
-    <img src="assets/embedded-35ec7337baa0.png" alt="City walking illustration">
-    <div class="interest-copy">
-      <h4><span data-lang="en">City Walking</span><span data-lang="ja">散歩・街歩き</span><span data-lang="zh">散步・城市漫遊</span></h4>
-    </div>
-  </article>
-'''
+            <img src="assets/embedded-35ec7337baa0.png" alt="City walking illustration">
+            <div class="interest-copy">
+              <h4><span data-lang="en">City Walking</span><span data-lang="ja">散歩・街歩き</span><span data-lang="zh">散步・城市漫遊</span></h4>
+            </div>
+          </article>
+          '''
           additions = '''
-  <article class="interest-generated">
-    <div aria-hidden="true" style="display:grid;place-items:center;width:70px;height:70px;border-radius:18px;background:linear-gradient(135deg,rgba(245,236,242,.98),rgba(236,234,247,.98));font-size:34px;justify-self:center">📷</div>
-    <div class="interest-copy">
-      <h4><span data-lang="en">Photography</span><span data-lang="ja">写真</span><span data-lang="zh">攝影</span></h4>
-    </div>
-  </article>
+          <article class="interest-generated">
+            <div aria-hidden="true" style="display:grid;place-items:center;width:70px;height:70px;border-radius:18px;background:linear-gradient(135deg,rgba(245,236,242,.98),rgba(236,234,247,.98));font-size:34px;justify-self:center">📷</div>
+            <div class="interest-copy"><h4><span data-lang="en">Photography</span><span data-lang="ja">写真</span><span data-lang="zh">攝影</span></h4></div>
+          </article>
+          <article class="interest-generated">
+            <div aria-hidden="true" style="display:grid;place-items:center;width:70px;height:70px;border-radius:18px;background:linear-gradient(135deg,rgba(245,236,242,.98),rgba(236,234,247,.98));font-size:34px;justify-self:center">✈️</div>
+            <div class="interest-copy"><h4><span data-lang="en">Travel</span><span data-lang="ja">旅行</span><span data-lang="zh">旅行</span></h4></div>
+          </article>
+          <article class="interest-generated">
+            <div aria-hidden="true" style="display:grid;place-items:center;width:70px;height:70px;border-radius:18px;background:linear-gradient(135deg,rgba(245,236,242,.98),rgba(236,234,247,.98));font-size:34px;justify-self:center">🎾</div>
+            <div class="interest-copy"><h4><span data-lang="en">Tennis</span><span data-lang="ja">テニス</span><span data-lang="zh">網球</span></h4></div>
+          </article>
+          <article class="interest-generated">
+            <div aria-hidden="true" style="display:grid;place-items:center;width:70px;height:70px;border-radius:18px;background:linear-gradient(135deg,rgba(245,236,242,.98),rgba(236,234,247,.98));font-size:34px;justify-self:center">🐎</div>
+            <div class="interest-copy"><h4><span data-lang="en">Horse Riding</span><span data-lang="ja">乗馬</span><span data-lang="zh">騎馬</span></h4></div>
+          </article>
+          <article class="interest-generated">
+            <div aria-hidden="true" style="display:grid;place-items:center;width:70px;height:70px;border-radius:18px;background:linear-gradient(135deg,rgba(245,236,242,.98),rgba(236,234,247,.98));font-size:34px;justify-self:center">🎨</div>
+            <div class="interest-copy"><h4><span data-lang="en">Painting</span><span data-lang="ja">絵画</span><span data-lang="zh">繪畫</span></h4></div>
+          </article>
+          '''
 
-  <article class="interest-generated">
-    <div aria-hidden="true" style="display:grid;place-items:center;width:70px;height:70px;border-radius:18px;background:linear-gradient(135deg,rgba(245,236,242,.98),rgba(236,234,247,.98));font-size:34px;justify-self:center">✈️</div>
-    <div class="interest-copy">
-      <h4><span data-lang="en">Travel</span><span data-lang="ja">旅行</span><span data-lang="zh">旅行</span></h4>
-    </div>
-  </article>
-
-  <article class="interest-generated">
-    <div aria-hidden="true" style="display:grid;place-items:center;width:70px;height:70px;border-radius:18px;background:linear-gradient(135deg,rgba(245,236,242,.98),rgba(236,234,247,.98));font-size:34px;justify-self:center">🎾</div>
-    <div class="interest-copy">
-      <h4><span data-lang="en">Tennis</span><span data-lang="ja">テニス</span><span data-lang="zh">網球</span></h4>
-    </div>
-  </article>
-
-  <article class="interest-generated">
-    <div aria-hidden="true" style="display:grid;place-items:center;width:70px;height:70px;border-radius:18px;background:linear-gradient(135deg,rgba(245,236,242,.98),rgba(236,234,247,.98));font-size:34px;justify-self:center">🐎</div>
-    <div class="interest-copy">
-      <h4><span data-lang="en">Horse Riding</span><span data-lang="ja">乗馬</span><span data-lang="zh">騎馬</span></h4>
-    </div>
-  </article>
-
-  <article class="interest-generated">
-    <div aria-hidden="true" style="display:grid;place-items:center;width:70px;height:70px;border-radius:18px;background:linear-gradient(135deg,rgba(245,236,242,.98),rgba(236,234,247,.98));font-size:34px;justify-self:center">🎨</div>
-    <div class="interest-copy">
-      <h4><span data-lang="en">Painting</span><span data-lang="ja">絵画</span><span data-lang="zh">繪畫</span></h4>
-    </div>
-  </article>
-'''
           if 'data-lang="en">Photography</span>' in text:
-              print('Interests already present; no change needed.')
-          elif marker not in text:
-              raise SystemExit('City Walking marker not found; refusing to modify index.html')
+              print("Interests already present")
+          elif marker in text:
+              path.write_text(text.replace(marker, marker + additions, 1), encoding="utf-8")
           else:
-              path.write_text(text.replace(marker, marker + additions, 1), encoding='utf-8')
+              raise SystemExit("City Walking marker not found")
+          PY
+
       - name: Commit changes
         run: |
           if git diff --quiet -- index.html; then
-            echo "No changes to commit."
+            echo "No changes to commit"
             exit 0
           fi
           git config user.name "github-actions[bot]"
