@@ -1,0 +1,147 @@
+name: Add mobile title menu
+
+on:
+  push:
+    paths:
+      - .github/workflows/add-mobile-title-menu.yml
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Add mobile navigation menu
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('index.html')
+          text = path.read_text(encoding='utf-8')
+
+          css = r'''
+/* mobile title menu */
+.mobile-menu{display:none}
+@media(max-width:720px){
+  .topbar-inner{gap:8px}
+  .mobile-menu{
+    display:block;
+    position:relative;
+    margin-left:auto;
+  }
+  .mobile-menu summary{
+    min-height:36px;
+    padding:0 12px;
+    border:1px solid var(--line);
+    border-radius:999px;
+    background:rgba(255,255,255,.84);
+    display:flex;
+    align-items:center;
+    gap:7px;
+    cursor:pointer;
+    color:var(--ink);
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:.04em;
+    list-style:none;
+    user-select:none;
+  }
+  .mobile-menu summary::-webkit-details-marker{display:none}
+  .mobile-menu summary:before{
+    content:"☰";
+    font-size:15px;
+    line-height:1;
+    color:var(--mauve);
+  }
+  .mobile-menu[open] summary:before{content:"×"}
+  .mobile-menu-panel{
+    position:absolute;
+    top:44px;
+    right:0;
+    z-index:80;
+    width:min(250px,calc(100vw - 28px));
+    padding:8px;
+    display:grid;
+    gap:3px;
+    border:1px solid var(--line);
+    border-radius:18px;
+    background:rgba(255,250,252,.98);
+    box-shadow:0 18px 42px rgba(78,61,82,.16);
+    backdrop-filter:blur(14px);
+  }
+  .mobile-menu-panel a{
+    min-height:42px;
+    padding:0 12px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    color:var(--ink);
+    font-size:13px;
+    font-weight:700;
+  }
+  .mobile-menu-panel a:hover,
+  .mobile-menu-panel a:focus{
+    background:rgba(168,162,215,.12);
+  }
+  .lang{flex-shrink:0}
+}
+'''
+
+          if '/* mobile title menu */' not in text:
+              if '</style>' not in text:
+                  raise SystemExit('style closing tag not found')
+              text = text.replace('</style>', css + '\n</style>', 1)
+
+          menu = r'''    <details class="mobile-menu">
+      <summary aria-label="Mobile navigation">
+        <span data-lang="en">Menu</span><span data-lang="ja">メニュー</span><span data-lang="zh">選單</span>
+      </summary>
+      <nav class="mobile-menu-panel" aria-label="Mobile navigation links">
+        <a href="#top">Home</a>
+        <a href="#profile"><span data-lang="en">About</span><span data-lang="ja">私について</span><span data-lang="zh">關於我</span></a>
+        <a href="#experience"><span data-lang="en">Career</span><span data-lang="ja">職歴</span><span data-lang="zh">職涯</span></a>
+        <a href="#expertise"><span data-lang="en">Strengths</span><span data-lang="ja">強み</span><span data-lang="zh">強項</span></a>
+        <a href="#life"><span data-lang="en">Life</span><span data-lang="ja">日常</span><span data-lang="zh">生活</span></a>
+        <a href="#contact"><span data-lang="en">Contact</span><span data-lang="ja">お問い合わせ</span><span data-lang="zh">聯絡我</span></a>
+      </nav>
+    </details>
+'''
+
+          if 'class="mobile-menu"' not in text:
+              nav_start = text.find('    <div class="nav">')
+              if nav_start == -1:
+                  raise SystemExit('desktop nav not found')
+              lang_start = text.find('    <div class="lang">', nav_start)
+              if lang_start == -1:
+                  raise SystemExit('language switcher not found after nav')
+              text = text[:lang_start] + menu + text[lang_start:]
+
+          script = r'''
+<script>
+document.querySelectorAll('.mobile-menu-panel a').forEach(function(link){
+  link.addEventListener('click', function(){
+    var menu = link.closest('.mobile-menu');
+    if(menu) menu.removeAttribute('open');
+  });
+});
+</script>
+'''
+          if "document.querySelectorAll('.mobile-menu-panel a')" not in text:
+              if '</body>' not in text:
+                  raise SystemExit('body closing tag not found')
+              text = text.replace('</body>', script + '\n</body>', 1)
+
+          path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Commit update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git rm .github/workflows/add-mobile-title-menu.yml
+          git commit -m "Add mobile title navigation menu"
+          git push
