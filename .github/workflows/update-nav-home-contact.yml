@@ -18,32 +18,24 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-
+          import re
           path = Path('index.html')
           text = path.read_text(encoding='utf-8')
-
-          old = '''    <div class="nav">
-      <a href="#profile"><span data-lang="en">About</span><span data-lang="ja">私について</span><span data-lang="zh">關於我</span></a>
-      <a href="#experience"><span data-lang="en">Career</span><span data-lang="ja">職歴</span><span data-lang="zh">職涯</span></a>
-      <a href="#expertise"><span data-lang="en">Strengths</span><span data-lang="ja">強み</span><span data-lang="zh">強項</span></a>
-      <a href="#life"><span data-lang="en">Life</span><span data-lang="ja">日常</span><span data-lang="zh">生活</span></a>
-      <a href="#contact"><span data-lang="en">Now</span><span data-lang="ja">現在</span><span data-lang="zh">現在</span></a>
-    </div>'''
-
-          new = '''    <div class="nav">
-      <a href="#top">Home</a>
-      <a href="#profile"><span data-lang="en">About</span><span data-lang="ja">私について</span><span data-lang="zh">關於我</span></a>
-      <a href="#experience"><span data-lang="en">Career</span><span data-lang="ja">職歴</span><span data-lang="zh">職涯</span></a>
-      <a href="#expertise"><span data-lang="en">Strengths</span><span data-lang="ja">強み</span><span data-lang="zh">強項</span></a>
-      <a href="#life"><span data-lang="en">Life</span><span data-lang="ja">日常</span><span data-lang="zh">生活</span></a>
-      <a href="#contact">Contact</a>
-    </div>'''
-
-          if old not in text:
+          new_nav = '\n'.join([
+              '    <div class="nav">',
+              '      <a href="#top">Home</a>',
+              '      <a href="#profile"><span data-lang="en">About</span><span data-lang="ja">私について</span><span data-lang="zh">關於我</span></a>',
+              '      <a href="#experience"><span data-lang="en">Career</span><span data-lang="ja">職歴</span><span data-lang="zh">職涯</span></a>',
+              '      <a href="#expertise"><span data-lang="en">Strengths</span><span data-lang="ja">強み</span><span data-lang="zh">強項</span></a>',
+              '      <a href="#life"><span data-lang="en">Life</span><span data-lang="ja">日常</span><span data-lang="zh">生活</span></a>',
+              '      <a href="#contact">Contact</a>',
+              '    </div>'
+          ])
+          pattern = r'    <div class="nav">.*?    </div>'
+          updated, count = re.subn(pattern, new_nav, text, count=1, flags=re.S)
+          if count != 1:
               raise SystemExit('navigation block not found')
-
-          text = text.replace(old, new, 1)
-          path.write_text(text, encoding='utf-8')
+          path.write_text(updated, encoding='utf-8')
           PY
 
       - name: Commit update
