@@ -18,26 +18,17 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-
           path = Path('index.html')
           text = path.read_text(encoding='utf-8')
-
-          old = '''        <h2>
-          <span data-lang="en">Now & Next</span>
-          <span data-lang="ja">現在、そしてこれから</span>
-          <span data-lang="zh">現在與未來</span>
-        </h2>'''
-
-          new = '''        <h2>
-          <span data-lang="en">Contact</span>
-          <span data-lang="ja">お問い合わせ</span>
-          <span data-lang="zh">聯絡我</span>
-        </h2>'''
-
-          if old not in text:
-              raise SystemExit('contact heading block not found')
-
-          text = text.replace(old, new, 1)
+          replacements = {
+              '<span data-lang="en">Now & Next</span>': '<span data-lang="en">Contact</span>',
+              '<span data-lang="ja">現在、そしてこれから</span>': '<span data-lang="ja">お問い合わせ</span>',
+              '<span data-lang="zh">現在與未來</span>': '<span data-lang="zh">聯絡我</span>',
+          }
+          for old, new in replacements.items():
+              if old not in text:
+                  raise SystemExit(f'heading text not found: {old}')
+              text = text.replace(old, new, 1)
           path.write_text(text, encoding='utf-8')
           PY
 
