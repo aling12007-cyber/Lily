@@ -2234,6 +2234,62 @@ span[data-lang].show{display:inline}
   .credential p,.curiosity-body p,.now-next-copy p{font-size:13px!important;}
 }
 
+/* compact Life Beyond Work spacing */
+#life.section{padding-top:20px!important;padding-bottom:20px!important}
+#life .rule{margin:7px 0 11px!important}
+#life .generated-interests{gap:5px!important}
+#life .interest-generated{
+  min-height:78px!important;
+  grid-template-columns:60px minmax(0,1fr)!important;
+  gap:7px!important;
+  padding:6px 9px!important;
+  border-radius:14px!important;
+}
+#life .interest-generated img{
+  width:58px!important;
+  height:58px!important;
+}
+#life .interest-generated > [aria-hidden="true"]{
+  width:58px!important;
+  height:58px!important;
+  border-radius:14px!important;
+  font-size:27px!important;
+}
+#life .interest-copy h4{font-size:13px!important}
+#life .generated-volunteer{
+  min-height:84px!important;
+  grid-template-columns:92px minmax(0,1fr)!important;
+  margin-top:6px!important;
+}
+#life .generated-volunteer-art img{
+  width:70px!important;
+  height:70px!important;
+}
+#life .generated-volunteer .volunteer-copy{padding:9px 12px!important}
+#life .generated-volunteer .volunteer-copy h3{margin:3px 0!important;font-size:15px!important}
+.career-project-label.star-only{
+  margin-bottom:5px!important;
+  font-size:18px!important;
+  line-height:1!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  color:#b38a50!important;
+}
+@media(max-width:720px){
+  #life .interest-generated{
+    grid-template-columns:54px minmax(0,1fr)!important;
+    min-height:70px!important;
+    padding:5px 8px!important;
+  }
+  #life .interest-generated img,
+  #life .interest-generated > [aria-hidden="true"]{
+    width:52px!important;
+    height:52px!important;
+  }
+  #life .generated-volunteer{grid-template-columns:78px minmax(0,1fr)!important}
+  #life .generated-volunteer-art img{width:60px!important;height:60px!important}
+}
+
 </style>
 </head>
 <body>
@@ -2479,12 +2535,12 @@ span[data-lang].show{display:inline}
   <div class="career-detail" hidden>
         <div class="milestone-detail"><span class="milestone-detail-label"><span data-lang="en">Career milestone</span><span data-lang="ja">キャリアの節目</span><span data-lang="zh">職涯里程碑</span></span><span class="milestone-detail-text"><span data-lang="en">Senior accounting role</span><span data-lang="ja">シニア経理としてのキャリア</span><span data-lang="zh">資深會計職涯</span></span></div>
     <div class="career-project-highlight">
-      <div class="career-project-label"><span data-lang="en">Key contribution</span><span data-lang="ja">代表プロジェクト</span><span data-lang="zh">代表專案</span></div>
-      <p><span data-lang="en">Sole accountant for the Japan entity, covering accounting, tax coordination, banking and the main external accounting contact.</span><span data-lang="ja">日本法人の唯一の経理担当として、会計、税務調整、銀行業務、主要な対外会計窓口を担当。</span><span data-lang="zh">日本分公司唯一會計，負責帳務、稅務協調、銀行業務與主要對外會計窗口。</span></p>
+      <div class="career-project-label star-only" aria-label="Key contribution"><span aria-hidden="true">★</span></div>
+      <p><span data-lang="en">Sole local accountant for the Japan entity, responsible for accounting, tax coordination, banking and serving as the primary external accounting contact.</span><span data-lang="ja">日本法人の現地唯一の経理担当として、会計、税務調整、銀行業務および主要な対外会計窓口を担当。</span><span data-lang="zh">日本分公司在地唯一會計，負責帳務、稅務協調、銀行業務與主要對外會計窗口。</span></p>
     </div>
-    <div class="career-resp" data-lang="en"><ul><li>Monthly, quarterly and annual closing, including IFRS reporting.</li><li>Journal entries, expense reimbursement, budgets and cash administration.</li><li>Coordination with tax accountants, banks and government authorities.</li></ul></div>
-    <div class="career-resp" data-lang="ja"><ul><li>月次・四半期・年次決算およびIFRS報告。</li><li>仕訳、経費精算、予算、小口現金管理。</li><li>税理士、銀行、官公庁との連絡・書類対応。</li></ul></div>
-    <div class="career-resp" data-lang="zh"><ul><li>月／季／年度結算及 IFRS 財務報表與報告資料編製。</li><li>會計傳票、費用報銷、預算與零用金管理。</li><li>與稅理士、銀行及政府機關聯繫與文件處理。</li></ul></div>
+    <div class="career-resp" data-lang="en"><ul><li>Monthly and annual closing; preparation of IFRS and GAAP financial statements and reporting materials.</li><li>Journal entries, expense reimbursements, tax filings, budgets and petty cash management.</li><li>Liaison with tax accountants, banks and government authorities, including document handling.</li></ul></div>
+    <div class="career-resp" data-lang="ja"><ul><li>月次・年次決算およびIFRS・GAAP財務諸表・報告資料の作成。</li><li>会計伝票、経費精算、税務申告、予算、小口現金管理。</li><li>税理士、銀行、官公庁との連絡・書類対応。</li></ul></div>
+    <div class="career-resp" data-lang="zh"><ul><li>月／年度結算及 IFRS及GAAP 財務報表與報告資料編製。</li><li>會計傳票、費用報銷、稅務申告、預算與零用金管理。</li><li>與稅理士、銀行及政府機關聯繫與文件處理。</li></ul></div>
   </div>
 </article>
 <article class="career-entry">
@@ -2542,9 +2598,9 @@ span[data-lang].show{display:inline}
     </button>
   </div>
   <div class="career-detail" hidden>
-        <div class="career-resp" data-lang="en"><ul><li>Closing and financial statement preparation.</li><li>Vendor and tax payments.</li><li>Accruals, petty cash and budget management.</li><li>PC and network support.</li></ul></div>
-    <div class="career-resp" data-lang="ja"><ul><li>決算および財務諸表作成。</li><li>取引先支払・税金納付。</li><li>未払金、小口現金、予算管理。</li><li>PC・ネットワーク管理。</li></ul></div>
-    <div class="career-resp" data-lang="zh"><ul><li>結算與財務報表編製。</li><li>供應商付款與稅款繳納。</li><li>應付款項、零用金與預算管理。</li><li>PC 與網路支援。</li></ul></div>
+        <div class="career-resp" data-lang="en"><ul><li>Monthly and annual closing and preparation of IFRS and GAAP financial statements.</li><li>Vendor management, accounts payable, expense reimbursements, petty cash and budget management.</li><li>Monthly tax filings and capital increase project evaluation.</li><li>IT department support.</li></ul></div>
+    <div class="career-resp" data-lang="ja"><ul><li>月次・年次決算およびIFRS・GAAP財務諸表の作成。</li><li>取引先管理、買掛金、経費精算、小口現金、予算管理。</li><li>月次税務申告、増資プロジェクトの評価。</li><li>IT部門サポート。</li></ul></div>
+    <div class="career-resp" data-lang="zh"><ul><li>月／年度結算及 IFRS及GAAP財務報表編製。</li><li>供應商管理、應付款項、費用報銷、零用金與預算管理。</li><li>每月稅務申告，增資專案評估。</li><li>IT部門支援。</li></ul></div>
   </div>
 </article>
 <article class="career-entry important">
@@ -3158,7 +3214,7 @@ span[data-lang].show{display:inline}
             <p><span data-lang="en">Tokyo, Japan · Accounting / Finance</span><span data-lang="ja">日本・東京 · 経理 / 財務</span><span data-lang="zh">日本東京 · 會計 / 財務</span></p>
           </div>
           <div class="contact-actions">
-            <a class="btn primary" href="mailto:aling12007@icloud.com">aling12007@icloud.com</a>
+            <a class="btn primary" href="mailto:aling12007@icloud.com">E-MAIL</a>
             <a class="btn" href="https://www.linkedin.com/in/yu-ling-l-0a185a166" target="_blank" rel="noopener">LinkedIn</a>
           </div>
         </div>
