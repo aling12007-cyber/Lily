@@ -1,0 +1,51 @@
+name: Update contact heading
+
+on:
+  push:
+    paths:
+      - .github/workflows/update-contact-heading.yml
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update Contact section heading
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('index.html')
+          text = path.read_text(encoding='utf-8')
+
+          old = '''        <h2>
+          <span data-lang="en">Now & Next</span>
+          <span data-lang="ja">現在、そしてこれから</span>
+          <span data-lang="zh">現在與未來</span>
+        </h2>'''
+
+          new = '''        <h2>
+          <span data-lang="en">Contact</span>
+          <span data-lang="ja">お問い合わせ</span>
+          <span data-lang="zh">聯絡我</span>
+        </h2>'''
+
+          if old not in text:
+              raise SystemExit('contact heading block not found')
+
+          text = text.replace(old, new, 1)
+          path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Commit update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git rm .github/workflows/update-contact-heading.yml
+          git commit -m "Rename Now and Next section to Contact"
+          git push
