@@ -15,42 +15,15 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Add interests
+        env:
+          ADDITIONS_B64: CiAgPGFydGljbGUgY2xhc3M9ImludGVyZXN0LWdlbmVyYXRlZCI+CiAgICA8ZGl2IGFyaWEtaGlkZGVuPSJ0cnVlIiBzdHlsZT0iZGlzcGxheTpncmlkO3BsYWNlLWl0ZW1zOmNlbnRlcjt3aWR0aDo3MHB4O2hlaWdodDo3MHB4O2JvcmRlci1yYWRpdXM6MThweDtiYWNrZ3JvdW5kOmxpbmVhci1ncmFkaWVudCgxMzVkZWcscmdiYSgyNDUsMjM2LDI0MiwuOTgpLHJnYmEoMjM2LDIzNCwyNDcsLjk4KSk7Zm9udC1zaXplOjM0cHg7anVzdGlmeS1zZWxmOmNlbnRlciI+8J+TtzwvZGl2PgogICAgPGRpdiBjbGFzcz0iaW50ZXJlc3QtY29weSI+PGg0PjxzcGFuIGRhdGEtbGFuZz0iZW4iPlBob3RvZ3JhcGh5PC9zcGFuPjxzcGFuIGRhdGEtbGFuZz0iamEiPuWGmeecnzwvc3Bhbj48c3BhbiBkYXRhLWxhbmc9InpoIj7mlJ3lvbE8L3NwYW4+PC9oND48L2Rpdj4KICA8L2FydGljbGU+CgogIDxhcnRpY2xlIGNsYXNzPSJpbnRlcmVzdC1nZW5lcmF0ZWQiPgogICAgPGRpdiBhcmlhLWhpZGRlbj0idHJ1ZSIgc3R5bGU9ImRpc3BsYXk6Z3JpZDtwbGFjZS1pdGVtczpjZW50ZXI7d2lkdGg6NzBweDtoZWlnaHQ6NzBweDtib3JkZXItcmFkaXVzOjE4cHg7YmFja2dyb3VuZDpsaW5lYXItZ3JhZGllbnQoMTM1ZGVnLHJnYmEoMjQ1LDIzNiwyNDIsLjk4KSxyZ2JhKDIzNiwyMzQsMjQ3LC45OCkpO2ZvbnQtc2l6ZTozNHB4O2p1c3RpZnktc2VsZjpjZW50ZXIiPuKciO+4jzwvZGl2PgogICAgPGRpdiBjbGFzcz0iaW50ZXJlc3QtY29weSI+PGg0PjxzcGFuIGRhdGEtbGFuZz0iZW4iPlRyYXZlbDwvc3Bhbj48c3BhbiBkYXRhLWxhbmc9ImphIj7ml4XooYw8L3NwYW4+PHNwYW4gZGF0YS1sYW5nPSJ6aCI+5peF6KGMPC9zcGFuPjwvaDQ+PC9kaXY+CiAgPC9hcnRpY2xlPgoKICA8YXJ0aWNsZSBjbGFzcz0iaW50ZXJlc3QtZ2VuZXJhdGVkIj4KICAgIDxkaXYgYXJpYS1oaWRkZW49InRydWUiIHN0eWxlPSJkaXNwbGF5OmdyaWQ7cGxhY2UtaXRlbXM6Y2VudGVyO3dpZHRoOjcwcHg7aGVpZ2h0OjcwcHg7Ym9yZGVyLXJhZGl1czoxOHB4O2JhY2tncm91bmQ6bGluZWFyLWdyYWRpZW50KDEzNWRlZyxyZ2JhKDI0NSwyMzYsMjQyLC45OCkscmdiYSgyMzYsMjM0LDI0NywuOTgpKTtmb250LXNpemU6MzRweDtqdXN0aWZ5LXNlbGY6Y2VudGVyIj7wn46+PC9kaXY+CiAgICA8ZGl2IGNsYXNzPSJpbnRlcmVzdC1jb3B5Ij48aDQ+PHNwYW4gZGF0YS1sYW5nPSJlbiI+VGVubmlzPC9zcGFuPjxzcGFuIGRhdGEtbGFuZz0iamEiPuODhuODi+OCuTwvc3Bhbj48c3BhbiBkYXRhLWxhbmc9InpoIj7ntrLnkIM8L3NwYW4+PC9oND48L2Rpdj4KICA8L2FydGljbGU+CgogIDxhcnRpY2xlIGNsYXNzPSJpbnRlcmVzdC1nZW5lcmF0ZWQiPgogICAgPGRpdiBhcmlhLWhpZGRlbj0idHJ1ZSIgc3R5bGU9ImRpc3BsYXk6Z3JpZDtwbGFjZS1pdGVtczpjZW50ZXI7d2lkdGg6NzBweDtoZWlnaHQ6NzBweDtib3JkZXItcmFkaXVzOjE4cHg7YmFja2dyb3VuZDpsaW5lYXItZ3JhZGllbnQoMTM1ZGVnLHJnYmEoMjQ1LDIzNiwyNDIsLjk4KSxyZ2JhKDIzNiwyMzQsMjQ3LC45OCkpO2ZvbnQtc2l6ZTozNHB4O2p1c3RpZnktc2VsZjpjZW50ZXIiPvCfkI48L2Rpdj4KICAgIDxkaXYgY2xhc3M9ImludGVyZXN0LWNvcHkiPjxoND48c3BhbiBkYXRhLWxhbmc9ImVuIj5Ib3JzZSBSaWRpbmc8L3NwYW4+PHNwYW4gZGF0YS1sYW5nPSJqYSI+5LmX6aasPC9zcGFuPjxzcGFuIGRhdGEtbGFuZz0iemgiPumojummrDwvc3Bhbj48L2g0PjwvZGl2PgogIDwvYXJ0aWNsZT4KCiAgPGFydGljbGUgY2xhc3M9ImludGVyZXN0LWdlbmVyYXRlZCI+CiAgICA8ZGl2IGFyaWEtaGlkZGVuPSJ0cnVlIiBzdHlsZT0iZGlzcGxheTpncmlkO3BsYWNlLWl0ZW1zOmNlbnRlcjt3aWR0aDo3MHB4O2hlaWdodDo3MHB4O2JvcmRlci1yYWRpdXM6MThweDtiYWNrZ3JvdW5kOmxpbmVhci1ncmFkaWVudCgxMzVkZWcscmdiYSgyNDUsMjM2LDI0MiwuOTgpLHJnYmEoMjM2LDIzNCwyNDcsLjk4KSk7Zm9udC1zaXplOjM0cHg7anVzdGlmeS1zZWxmOmNlbnRlciI+8J+OqDwvZGl2PgogICAgPGRpdiBjbGFzcz0iaW50ZXJlc3QtY29weSI+PGg0PjxzcGFuIGRhdGEtbGFuZz0iZW4iPlBhaW50aW5nPC9zcGFuPjxzcGFuIGRhdGEtbGFuZz0iamEiPue1teeUuzwvc3Bhbj48c3BhbiBkYXRhLWxhbmc9InpoIj7nuarnlas8L3NwYW4+PC9oND48L2Rpdj4KICA8L2FydGljbGU+
         run: |
           python - <<'PY'
+          import base64, os
           from pathlib import Path
-
           path = Path("index.html")
           text = path.read_text(encoding="utf-8")
-          additions = '''
-
-  <article class="interest-generated">
-    <div aria-hidden="true" style="display:grid;place-items:center;width:70px;height:70px;border-radius:18px;background:linear-gradient(135deg,rgba(245,236,242,.98),rgba(236,234,247,.98));font-size:34px;justify-self:center">📷</div>
-    <div class="interest-copy"><h4><span data-lang="en">Photography</span><span data-lang="ja">写真</span><span data-lang="zh">攝影</span></h4></div>
-  </article>
-
-  <article class="interest-generated">
-    <div aria-hidden="true" style="display:grid;place-items:center;width:70px;height:70px;border-radius:18px;background:linear-gradient(135deg,rgba(245,236,242,.98),rgba(236,234,247,.98));font-size:34px;justify-self:center">✈️</div>
-    <div class="interest-copy"><h4><span data-lang="en">Travel</span><span data-lang="ja">旅行</span><span data-lang="zh">旅行</span></h4></div>
-  </article>
-
-  <article class="interest-generated">
-    <div aria-hidden="true" style="display:grid;place-items:center;width:70px;height:70px;border-radius:18px;background:linear-gradient(135deg,rgba(245,236,242,.98),rgba(236,234,247,.98));font-size:34px;justify-self:center">🎾</div>
-    <div class="interest-copy"><h4><span data-lang="en">Tennis</span><span data-lang="ja">テニス</span><span data-lang="zh">網球</span></h4></div>
-  </article>
-
-  <article class="interest-generated">
-    <div aria-hidden="true" style="display:grid;place-items:center;width:70px;height:70px;border-radius:18px;background:linear-gradient(135deg,rgba(245,236,242,.98),rgba(236,234,247,.98));font-size:34px;justify-self:center">🐎</div>
-    <div class="interest-copy"><h4><span data-lang="en">Horse Riding</span><span data-lang="ja">乗馬</span><span data-lang="zh">騎馬</span></h4></div>
-  </article>
-
-  <article class="interest-generated">
-    <div aria-hidden="true" style="display:grid;place-items:center;width:70px;height:70px;border-radius:18px;background:linear-gradient(135deg,rgba(245,236,242,.98),rgba(236,234,247,.98));font-size:34px;justify-self:center">🎨</div>
-    <div class="interest-copy"><h4><span data-lang="en">Painting</span><span data-lang="ja">絵画</span><span data-lang="zh">繪畫</span></h4></div>
-  </article>'''
-
-          if 'data-lang="en">Photography</span>' in text:
-              print("Interests already present")
-          else:
+          if 'data-lang="en">Photography</span>' not in text:
               anchor = 'data-lang="en">City Walking</span>'
               start = text.find(anchor)
               if start == -1:
@@ -59,8 +32,8 @@ jobs:
               if end == -1:
                   raise SystemExit("City Walking article end not found")
               end += len('</article>')
-              text = text[:end] + additions + text[end:]
-              path.write_text(text, encoding="utf-8")
+              additions = base64.b64decode(os.environ["ADDITIONS_B64"]).decode("utf-8")
+              path.write_text(text[:end] + additions + text[end:], encoding="utf-8")
           PY
 
       - name: Commit changes
