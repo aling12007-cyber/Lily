@@ -1,0 +1,83 @@
+name: Update refined interest icons
+
+on:
+  push:
+    paths:
+      - .github/workflows/update-generated-interest-icons.yml
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install refined interest icons
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64, re
+
+          assets = Path('assets')
+          assets.mkdir(exist_ok=True)
+          data = {
+            'photography': 'iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAABM/0lEQVR42u29eZxcZZX//znPc7eq6u4sEARRvzoIQhp0BpFxQe1yARIColCX1QUXMs6IDiKyJdy6BERH/SluIyiDgBC4BaIsWUDtdhm3AVSkwybuytJASHdX1d2e5/z+uFW9xAQRQ9JJP29eTZLqulV1b91znnPOcxbAYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwTDTIHMJDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYNhycBAIZiYOAmGuhsFgMBgMs2HlB4CfX/m+pX+8+dQf/fzK/xgAAGZjCTwTzEUzbD/CDxCFoR4MXm85kj6y05zyq0olcTIAoLHOlO8aBWCYFbxwwLIdN3uy2VZgZQTfKADDbDEBAKC3ErsMUdG5lqx0CQB...TRUNCATED_PLACEHOLDER...',
+          }
+          for name, encoded in data.items():
+              (assets / f'interest-{name}.png').write_bytes(base64.b64decode(encoded))
+
+          path = Path('index.html')
+          text = path.read_text(encoding='utf-8')
+
+          mapping = {
+              'Photography': ('photography', 'Photography'),
+              'Travel': ('travel', 'Travel'),
+              'Tennis': ('tennis', 'Tennis'),
+              'Horse Riding': ('horse-riding', 'Horse Riding'),
+              'Painting': ('painting', 'Painting'),
+          }
+
+          for title, (slug, alt) in mapping.items():
+              pattern = re.compile(
+                  r'(<article class="interest-generated">\s*)'
+                  r'<div class="interest-line-icon" aria-hidden="true">.*?</div>'
+                  r'(\s*<div class="interest-copy"><h4><span data-lang="en">' + re.escape(title) + r'</span>)',
+                  re.S
+              )
+              replacement = (
+                  r'\1<div class="interest-line-icon" aria-hidden="true">'
+                  f'<img src="assets/interest-{slug}.png" alt="" loading="lazy">'
+                  r'</div>\2'
+              )
+              text, count = pattern.subn(replacement, text, count=1)
+              if count != 1:
+                  raise SystemExit(f'Could not update icon for {title}: {count}')
+
+          css = '''
+/* refined generated interest icon images */
+#life .interest-line-icon img{
+  width:58px!important;
+  height:58px!important;
+  display:block!important;
+  object-fit:contain!important;
+}
+@media(max-width:720px){
+  #life .interest-line-icon img{width:52px!important;height:52px!important}
+}
+'''
+          if '/* refined generated interest icon images */' not in text:
+              text = text.replace('</style>', css + '\n</style>', 1)
+
+          path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Commit update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html assets/interest-*.png
+          git rm .github/workflows/update-generated-interest-icons.yml
+          git commit -m "Update refined Life Beyond Work icons"
+          git push
