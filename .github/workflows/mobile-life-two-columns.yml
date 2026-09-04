@@ -18,46 +18,15 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
+          import base64
 
           path = Path('index.html')
           text = path.read_text(encoding='utf-8')
-
           marker = '/* Mobile Life Beyond Work — 2 columns */'
-          if marker in text:
-              raise SystemExit('Mobile two-column override already exists')
-
-          css = '''
-/* Mobile Life Beyond Work — 2 columns */
-@media(max-width:720px){
-  #life .generated-interests{
-    grid-template-columns:repeat(2,minmax(0,1fr))!important;
-    gap:6px!important;
-  }
-  #life .interest-generated{
-    grid-template-columns:48px minmax(0,1fr)!important;
-    min-height:72px!important;
-    padding:8px!important;
-    gap:6px!important;
-  }
-  #life .interest-generated img{
-    width:42px!important;
-    height:42px!important;
-  }
-  #life .interest-copy h4{
-    font-size:12px!important;
-    line-height:1.25!important;
-  }
-  #life .generated-volunteer{
-    grid-template-columns:78px minmax(0,1fr)!important;
-  }
-  #life .generated-volunteer-art img{
-    width:60px!important;
-    height:60px!important;
-  }
-}
-'''
-          text = text.replace('</style>', css + '\n</style>', 1)
-          path.write_text(text, encoding='utf-8')
+          if marker not in text:
+              css = base64.b64decode('LyogTW9iaWxlIExpZmUgQmV5b25kIFdvcmsg4oCUIDIgY29sdW1ucyAqLwpAbWVkaWEobWF4LXdpZHRoOjcyMHB4KXsKICAjbGlmZSAuZ2VuZXJhdGVkLWludGVyZXN0c3sKICAgIGdyaWQtdGVtcGxhdGUtY29sdW1uczpyZXBlYXQoMixtaW5tYXgoMCwxZnIpKSFpbXBvcnRhbnQ7CiAgICBnYXA6NnB4IWltcG9ydGFudDsKICB9CiAgI2xpZmUgLmludGVyZXN0LWdlbmVyYXRlZHsKICAgIGdyaWQtdGVtcGxhdGUtY29sdW1uczo0OHB4IG1pbm1heCgwLDFmcikhaW1wb3J0YW50OwogICAgbWluLWhlaWdodDo3MnB4IWltcG9ydGFudDsKICAgIHBhZGRpbmc6OHB4IWltcG9ydGFudDsKICAgIGdhcDo2cHghaW1wb3J0YW50OwogIH0KICAjbGlmZSAuaW50ZXJlc3QtZ2VuZXJhdGVkIGltZ3sKICAgIHdpZHRoOjQycHghaW1wb3J0YW50OwogICAgaGVpZ2h0OjQycHghaW1wb3J0YW50OwogIH0KICAjbGlmZSAuaW50ZXJlc3QtY29weSBoNHsKICAgIGZvbnQtc2l6ZToxMnB4IWltcG9ydGFudDsKICAgIGxpbmUtaGVpZ2h0OjEuMjUhaW1wb3J0YW50OwogIH0KICAjbGlmZSAuZ2VuZXJhdGVkLXZvbHVudGVlcnsKICAgIGdyaWQtdGVtcGxhdGUtY29sdW1uczo3OHB4IG1pbm1heCgwLDFmcikhaW1wb3J0YW50OwogIH0KICAjbGlmZSAuZ2VuZXJhdGVkLXZvbHVudGVlci1hcnQgaW1newogICAgd2lkdGg6NjBweCFpbXBvcnRhbnQ7CiAgICBoZWlnaHQ6NjBweCFpbXBvcnRhbnQ7CiAgfQp9Cg==').decode('utf-8')
+              text = text.replace('</style>', css + '\n</style>', 1)
+              path.write_text(text, encoding='utf-8')
           PY
 
       - name: Commit update
