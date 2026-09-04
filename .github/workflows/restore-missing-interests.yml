@@ -18,6 +18,7 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
+          import base64
 
           path = Path('index.html')
           text = path.read_text(encoding='utf-8')
@@ -30,39 +31,13 @@ jobs:
           if insert_at == -1:
               raise SystemExit('Painting article start not found')
 
-          cards = '''  <article class="interest-generated">
-    <div class="interest-line-icon" aria-hidden="true">
-      <svg viewBox="0 0 72 72" role="img" aria-label="Photography"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M14 25h10l5-6h14l5 6h10a6 6 0 0 1 6 6v24a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V31a6 6 0 0 1 6-6Z" stroke="#a77f9d" stroke-width="2"/><rect x="18" y="20" width="10" height="5" rx="2" stroke="#a77f9d" stroke-width="1.7"/><circle cx="36" cy="43" r="13" stroke="#a77f9d" stroke-width="2"/><circle cx="36" cy="43" r="8" stroke="#a8a2d7" stroke-width="2"/><path d="M31 40c2-3 4-4 7-4" stroke="#d7a8bf" stroke-width="1.8"/><circle cx="41" cy="39" r="1.5" stroke="#a8a2d7" stroke-width="1.4"/><path d="M13 15l4 4m0-4-4 4" stroke="#a8a2d7" stroke-width="1.6"/><path d="M57 13l1.8 3.6L62 18l-3.2 1.4L57 23l-1.8-3.6L52 18l3.2-1.4Z" stroke="#b99361" stroke-width="1.5"/></g></svg>
-    </div>
-    <div class="interest-copy"><h4><span data-lang="en">Photography</span><span data-lang="ja">写真</span><span data-lang="zh">攝影</span></h4></div>
-  </article>
-
-  <article class="interest-generated">
-    <div class="interest-line-icon" aria-hidden="true">
-      <svg viewBox="0 0 72 72" role="img" aria-label="Travel"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M13 40c10-2 19-5 28-9l12-17c1.6-2.2 4.8-2.6 7-1.2l-6 20 10 6c2.2 1.4 2 4.7-.4 5.7l-12-1.8-10 13c-1.4 2-4.7 1.5-5.3-.9l2-14c-9 2.5-17 3.6-25 3.8Z" stroke="#a77f9d" stroke-width="2"/><path d="M12 51c7 5 16 7 26 7" stroke="#a8a2d7" stroke-width="1.7" stroke-dasharray="3 4"/><path d="M15 16l3 3m0-3-3 3" stroke="#a8a2d7" stroke-width="1.6"/><path d="M56 52l1.6 3.3L61 57l-3.4 1.7L56 62l-1.6-3.3L51 57l3.4-1.7Z" stroke="#b99361" stroke-width="1.5"/></g></svg>
-    </div>
-    <div class="interest-copy"><h4><span data-lang="en">Travel</span><span data-lang="ja">旅行</span><span data-lang="zh">旅行</span></h4></div>
-  </article>
-
-  <article class="interest-generated">
-    <div class="interest-line-icon" aria-hidden="true">
-      <svg viewBox="0 0 72 72" role="img" aria-label="Tennis"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="29" cy="28" rx="14" ry="18" transform="rotate(35 29 28)" stroke="#a77f9d" stroke-width="2"/><path d="M38 42l14 18M49 55l-5 4" stroke="#b99361" stroke-width="2.2"/><path d="M20 18l20 16M17 25l20 15M25 12l-8 30M32 11l-9 34" stroke="#a8a2d7" stroke-width="1" opacity=".9"/><circle cx="52" cy="20" r="7" stroke="#a77f9d" stroke-width="1.8"/><path d="M47 17c3 1 4 3 5 6M57 17c-3 1-4 3-5 6" stroke="#d7a8bf" stroke-width="1.4"/><path d="M56 9l1.3 2.7L60 13l-2.7 1.3L56 17l-1.3-2.7L52 13l2.7-1.3Z" stroke="#b99361" stroke-width="1.4"/></g></svg>
-    </div>
-    <div class="interest-copy"><h4><span data-lang="en">Tennis</span><span data-lang="ja">テニス</span><span data-lang="zh">網球</span></h4></div>
-  </article>
-
-  <article class="interest-generated">
-    <div class="interest-line-icon" aria-hidden="true">
-      <svg viewBox="0 0 72 72" role="img" aria-label="Horse Riding"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 55c4-10 4-19 1-27 5-7 11-12 19-15l5 6 7 2-4 7 5 8-6 6-8-2-5 8c-3 5-7 8-14 7Z" stroke="#a77f9d" stroke-width="2"/><path d="M24 27c7 2 13 1 19-3M23 35c8 2 14 1 20-2" stroke="#a8a2d7" stroke-width="1.6"/><path d="M42 20l-1-7 6 5M48 23l5-5" stroke="#b99361" stroke-width="1.6"/><path d="M41 24l7 6-5 9M47 30l6 2" stroke="#a77f9d" stroke-width="1.6"/><circle cx="48" cy="30" r="2" stroke="#b99361" stroke-width="1.5"/><circle cx="43" cy="39" r="2" stroke="#b99361" stroke-width="1.5"/><path d="M18 39v12M18 51c-3 0-5 2-5 5v5h10v-5c0-3-2-5-5-5Z" stroke="#b99361" stroke-width="1.7"/><path d="M12 16h6m-3-3v6" stroke="#d7a8bf" stroke-width="1.5"/></g></svg>
-    </div>
-    <div class="interest-copy"><h4><span data-lang="en">Horse Riding</span><span data-lang="ja">乗馬</span><span data-lang="zh">騎馬</span></h4></div>
-  </article>
-
-'''
+          cards_b64 = 'ICA8YXJ0aWNsZSBjbGFzcz0iaW50ZXJlc3QtZ2VuZXJhdGVkIj4KICAgIDxkaXYgY2xhc3M9ImludGVyZXN0LWxpbmUtaWNvbiIgYXJpYS1oaWRkZW49InRydWUiPgogICAgICA8c3ZnIHZpZXdCb3g9IjAgMCA3MiA3MiIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJQaG90b2dyYXBoeSI+PGcgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTQgMjVoMTBsNS02aDE0bDUgNmgxMGE2IDYgMCAwIDEgNiA2djI0YTYgNiAwIDAgMS02IDZIMTRhNiA2IDAgMCAxLTYtNlYzMWE2IDYgMCAwIDEgNi02WiIgc3Ryb2tlPSIjYTc3ZjlkIiBzdHJva2Utd2lkdGg9IjIiLz48cmVjdCB4PSIxOCIgeT0iMjAiIHdpZHRoPSIxMCIgaGVpZ2h0PSI1IiByeD0iMiIgc3Ryb2tlPSIjYTc3ZjlkIiBzdHJva2Utd2lkdGg9IjEuNyIvPjxjaXJjbGUgY3g9IjM2IiBjeT0iNDMiIHI9IjEzIiBzdHJva2U9IiNhNzdmOWQiIHN0cm9rZS13aWR0aD0iMiIvPjxjaXJjbGUgY3g9IjM2IiBjeT0iNDMiIHI9IjgiIHN0cm9rZT0iI2E4YTJkNyIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTMxIDQwYzItMyA0LTQgNy00IiBzdHJva2U9IiNkN2E4YmYiIHN0cm9rZS13aWR0aD0iMS44Ii8+PGNpcmNsZSBjeD0iNDEiIGN5PSIzOSIgcj0iMS41IiBzdHJva2U9IiNhOGEyZDciIHN0cm9rZS13aWR0aD0iMS40Ii8+PHBhdGggZD0iTTEzIDE1bDQgNG0wLTQtNCA0IiBzdHJva2U9IiNhOGEyZDciIHN0cm9rZS13aWR0aD0iMS42Ii8+PHBhdGggZD0iTTU3IDEzbDEuOCAzLjZMNjIgMThsLTMuMiAxLjRMNTcgMjNsLTEuOC0zLjZMNTIgMThsMy4yLTEuNFoiIHN0cm9rZT0iI2I5OTM2MSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48L2c+PC9zdmc+CiAgICA8L2Rpdj4KICAgIDxkaXYgY2xhc3M9ImludGVyZXN0LWNvcHkiPjxoND48c3BhbiBkYXRhLWxhbmc9ImVuIj5QaG90b2dyYXBoeTwvc3Bhbj48c3BhbiBkYXRhLWxhbmc9ImphIj7lhpnnnJ88L3NwYW4+PHNwYW4gZGF0YS1sYW5nPSJ6aCI+5pSd5b2xPC9zcGFuPjwvaDQ+PC9kaXY+CiAgPC9hcnRpY2xlPgoKICA8YXJ0aWNsZSBjbGFzcz0iaW50ZXJlc3QtZ2VuZXJhdGVkIj4KICAgIDxkaXYgY2xhc3M9ImludGVyZXN0LWxpbmUtaWNvbiIgYXJpYS1oaWRkZW49InRydWUiPgogICAgICA8c3ZnIHZpZXdCb3g9IjAgMCA3MiA3MiIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJUcmF2ZWwiPjxnIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHBhdGggZD0iTTEzIDQwYzEwLTIgMTktNSAyOC05bDEyLTE3YzEuNi0yLjIgNC44LTIuNiA3LTEuMmwtNiAyMCAxMCA2YzIuMiAxLjQgMiA0LjctLjQgNS43bC0xMi0xLjgtMTAgMTNjLTEuNCAyLTQuNyAxLjUtNS4zLS45bDItMTRjLTkgMi41LTE3IDMuNi0yNSAzLjhaIiBzdHJva2U9IiNhNzdmOWQiIHN0cm9rZS13aWR0aD0iMiIvPjxwYXRoIGQ9Ik0xMiA1MWM3IDUgMTYgNyAyNiA3IiBzdHJva2U9IiNhOGEyZDciIHN0cm9rZS13aWR0aD0iMS43IiBzdHJva2UtZGFzaGFycmF5PSIzIDQiLz48cGF0aCBkPSJNMTUgMTZsMyAzbTAtMy0zIDMiIHN0cm9rZT0iI2E4YTJkNyIgc3Ryb2tlLXdpZHRoPSIxLjYiLz48cGF0aCBkPSJNNTYgNTJsMS42IDMuM0w2MSA1N2wtMy40IDEuN0w1NiA2MmwtMS42LTMuM0w1MSA1N2wzLjQtMS43WiIgc3Ryb2tlPSIjYjk5MzYxIiBzdHJva2Utd2lkdGg9IjEuNSIvPjwvZz48L3N2Zz4KICAgIDwvZGl2PgogICAgPGRpdiBjbGFzcz0iaW50ZXJlc3QtY29weSI+PGg0PjxzcGFuIGRhdGEtbGFuZz0iZW4iPlRyYXZlbDwvc3Bhbj48c3BhbiBkYXRhLWxhbmc9ImphIj7ml4XooYw8L3NwYW4+PHNwYW4gZGF0YS1sYW5nPSJ6aCI+5peF6KGMPC9zcGFuPjwvaDQ+PC9kaXY+CiAgPC9hcnRpY2xlPgoKICA8YXJ0aWNsZSBjbGFzcz0iaW50ZXJlc3QtZ2VuZXJhdGVkIj4KICAgIDxkaXYgY2xhc3M9ImludGVyZXN0LWxpbmUtaWNvbiIgYXJpYS1oaWRkZW49InRydWUiPgogICAgICA8c3ZnIHZpZXdCb3g9IjAgMCA3MiA3MiIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJUZW5uaXMiPjxnIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PGVsbGlwc2UgY3g9IjI5IiBjeT0iMjgiIHJ4PSIxNCIgcnk9IjE4IiB0cmFuc2Zvcm09InJvdGF0ZSgzNSAyOSAyOCkiIHN0cm9rZT0iI2E3N2Y5ZCIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTM4IDQybDE0IDE4TTQ5IDU1bC01IDQiIHN0cm9rZT0iI2I5OTM2MSIgc3Ryb2tlLXdpZHRoPSIyLjIiLz48cGF0aCBkPSJNMjAgMThsMjAgMTZNMTcgMjVsMjAgMTVNMjUgMTJsLTggMzBNMzIgMTFsLTkgMzQiIHN0cm9rZT0iI2E4YTJkNyIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIuOSIvPjxjaXJjbGUgY3g9IjUyIiBjeT0iMjAiIHI9IjciIHN0cm9rZT0iI2E3N2Y5ZCIgc3Ryb2tlLXdpZHRoPSIxLjgiLz48cGF0aCBkPSJNNDcgMTdjMyAxIDQgMyA1IDZNNTcgMTdjLTMgMS00IDMtNSA2IiBzdHJva2U9IiNkN2E4YmYiIHN0cm9rZS13aWR0aD0iMS40Ii8+PHBhdGggZD0iTTU2IDlsMS4zIDIuN0w2MCAxM2wtMi43IDEuM0w1NiAxN2wtMS4zLTIuN0w1MiAxM2wyLjctMS4zWiIgc3Ryb2tlPSIjYjk5MzYxIiBzdHJva2Utd2lkdGg9IjEuNCIvPjwvZz48L3N2Zz4KICAgIDwvZGl2PgogICAgPGRpdiBjbGFzcz0iaW50ZXJlc3QtY29weSI+PGg0PjxzcGFuIGRhdGEtbGFuZz0iZW4iPlRlbm5pczwvc3Bhbj48c3BhbiBkYXRhLWxhbmc9ImphIj7jg4bjg4vjgrk8L3NwYW4+PHNwYW4gZGF0YS1sYW5nPSJ6aCI+57ay55CDPC9zcGFuPjwvaDQ+PC9kaXY+CiAgPC9hcnRpY2xlPgoKICA8YXJ0aWNsZSBjbGFzcz0iaW50ZXJlc3QtZ2VuZXJhdGVkIj4KICAgIDxkaXYgY2xhc3M9ImludGVyZXN0LWxpbmUtaWNvbiIgYXJpYS1oaWRkZW49InRydWUiPgogICAgICA8c3ZnIHZpZXdCb3g9IjAgMCA3MiA3MiIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJIb3JzZSBSaWRpbmciPjxnIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHBhdGggZD0iTTIxIDU1YzQtMTAgNC0xOSAxLTI3IDUtNyAxMS0xMiAxOS0xNWw1IDYgNyAyLTQgNyA1IDgtNiA2LTgtMi01IDhjLTMgNS03IDgtMTQgN1oiIHN0cm9rZT0iI2E3N2Y5ZCIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTI0IDI3YzcgMiAxMyAxIDE5LTNNMjMgMzVjOCAyIDE0IDEgMjAtMiIgc3Ryb2tlPSIjYThhMmQ3IiBzdHJva2Utd2lkdGg9IjEuNiIvPjxwYXRoIGQ9Ik00MiAyMGwtMS03IDYgNU00OCAyM2w1LTUiIHN0cm9rZT0iI2I5OTM2MSIgc3Ryb2tlLXdpZHRoPSIxLjYiLz48cGF0aCBkPSJNNDEgMjRsNyA2LTUgOU00NyAzMGw2IDIiIHN0cm9rZT0iI2E3N2Y5ZCIgc3Ryb2tlLXdpZHRoPSIxLjYiLz48Y2lyY2xlIGN4PSI0OCIgY3k9IjMwIiByPSIyIiBzdHJva2U9IiNiOTkzNjEiIHN0cm9rZS13aWR0aD0iMS41Ii8+PGNpcmNsZSBjeD0iNDMiIGN5PSIzOSIgcj0iMiIgc3Ryb2tlPSIjYjk5MzYxIiBzdHJva2Utd2lkdGg9IjEuNSIvPjxwYXRoIGQ9Ik0xOCAzOXYxMk0xOCA1MWMtMyAwLTUgMi01IDV2NWgxMHYtNWMwLTMtMi01LTUtNVoiIHN0cm9rZT0iI2I5OTM2MSIgc3Ryb2tlLXdpZHRoPSIxLjciLz48cGF0aCBkPSJNMTIgMTZoNm0tMy0zdjYiIHN0cm9rZT0iI2Q3YThiZiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48L2c+PC9zdmc+CiAgICA8L2Rpdj4KICAgIDxkaXYgY2xhc3M9ImludGVyZXN0LWNvcHkiPjxoND48c3BhbiBkYXRhLWxhbmc9ImVuIj5Ib3JzZSBSaWRpbmc8L3NwYW4+PHNwYW4gZGF0YS1sYW5nPSJqYSI+5LmX6aasPC9zcGFuPjxzcGFuIGRhdGEtbGFuZz0iemgiPumojummrDwvc3Bhbj48L2g0PjwvZGl2PgogIDwvYXJ0aWNsZT4KCg=='
+          cards = base64.b64decode(cards_b64).decode('utf-8')
 
           missing = [x for x in ['Photography','Travel','Tennis','Horse Riding'] if f'<span data-lang="en">{x}</span>' not in text]
           if not missing:
               raise SystemExit('No missing interest cards')
+
           text = text[:insert_at] + cards + text[insert_at:]
           path.write_text(text, encoding='utf-8')
           PY
