@@ -882,56 +882,6 @@ span[data-lang].show{display:inline}
 }
 
 
-/* V25 larger, clearer line-art illustrations */
-.interest-generated{
-  grid-template-columns:110px 1fr !important;
-  min-height:126px !important;
-  gap:10px !important;
-  padding:10px 14px !important;
-}
-.interest-generated img{
-  width:100px !important;
-  height:100px !important;
-  object-fit:contain !important;
-  image-rendering:auto;
-}
-.generated-volunteer{
-  grid-template-columns:140px 1fr !important;
-  min-height:126px !important;
-}
-.generated-volunteer-art img{
-  width:112px !important;
-  height:112px !important;
-  object-fit:contain !important;
-  image-rendering:auto;
-}
-.interest-copy h4{
-  font-size:15px !important;
-}
-.interest-copy p{
-  font-size:11px !important;
-}
-@media(max-width:620px){
-  .interest-generated{
-    grid-template-columns:86px 1fr !important;
-    min-height:108px !important;
-    padding:8px 10px !important;
-  }
-  .interest-generated img{
-    width:78px !important;
-    height:78px !important;
-  }
-  .generated-volunteer{
-    grid-template-columns:104px 1fr !important;
-    min-height:108px !important;
-  }
-  .generated-volunteer-art img{
-    width:84px !important;
-    height:84px !important;
-  }
-}
-
-
 /* V26 full career timeline + expand controls */
 .career-section-title{margin-bottom:10px!important}
 .career-toolbar{
@@ -2234,89 +2184,6 @@ span[data-lang].show{display:inline}
   .credential p,.curiosity-body p,.now-next-copy p{font-size:13px!important;}
 }
 
-/* compact Life Beyond Work spacing */
-#life.section{padding-top:20px!important;padding-bottom:20px!important}
-#life .rule{margin:7px 0 11px!important}
-#life .generated-interests{gap:5px!important}
-#life .interest-generated{
-  min-height:78px!important;
-  grid-template-columns:60px minmax(0,1fr)!important;
-  gap:7px!important;
-  padding:6px 9px!important;
-  border-radius:14px!important;
-}
-#life .interest-generated img{
-  width:58px!important;
-  height:58px!important;
-}
-#life .interest-generated > [aria-hidden="true"]{
-  width:58px!important;
-  height:58px!important;
-  border-radius:14px!important;
-  font-size:27px!important;
-}
-#life .interest-copy h4{font-size:13px!important}
-#life .generated-volunteer{
-  min-height:84px!important;
-  grid-template-columns:92px minmax(0,1fr)!important;
-  margin-top:6px!important;
-}
-#life .generated-volunteer-art img{
-  width:70px!important;
-  height:70px!important;
-}
-#life .generated-volunteer .volunteer-copy{padding:9px 12px!important}
-#life .generated-volunteer .volunteer-copy h3{margin:3px 0!important;font-size:15px!important}
-.career-project-label.star-only{
-  margin-bottom:5px!important;
-  font-size:18px!important;
-  line-height:1!important;
-  letter-spacing:0!important;
-  text-transform:none!important;
-  color:#b38a50!important;
-}
-@media(max-width:720px){
-  #life .interest-generated{
-    grid-template-columns:54px minmax(0,1fr)!important;
-    min-height:70px!important;
-    padding:5px 8px!important;
-  }
-  #life .interest-generated img,
-  #life .interest-generated > [aria-hidden="true"]{
-    width:52px!important;
-    height:52px!important;
-  }
-  #life .generated-volunteer{grid-template-columns:78px minmax(0,1fr)!important}
-  #life .generated-volunteer-art img{width:60px!important;height:60px!important}
-}
-
-
-/* unified line-art style for added interests */
-#life .interest-line-icon{
-  width:58px!important;
-  height:58px!important;
-  display:grid!important;
-  place-items:center!important;
-  justify-self:center!important;
-  background:transparent!important;
-  border:0!important;
-  border-radius:0!important;
-}
-#life .interest-line-icon svg{
-  width:58px!important;
-  height:58px!important;
-  display:block!important;
-  overflow:visible!important;
-}
-@media(max-width:720px){
-  #life .interest-line-icon,
-  #life .interest-line-icon svg{
-    width:52px!important;
-    height:52px!important;
-  }
-}
-
-
 /* mobile title menu */
 .mobile-menu{display:none}
 @media(max-width:720px){
@@ -2340,6 +2207,21 @@ span[data-lang].show{display:inline}
 .mobile-menu{order:3;margin-left:0}
 }
 
+/* Life Beyond Work — canonical layout */
+#life.section{padding-top:20px!important;padding-bottom:20px!important}
+#life .rule{margin:7px 0 11px!important}
+#life .generated-interests{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important}
+#life .interest-generated{min-height:82px!important;display:grid!important;grid-template-columns:66px minmax(0,1fr)!important;align-items:center!important;gap:7px!important;padding:7px 10px!important;border:1px solid rgba(78,61,82,.10)!important;border-radius:14px!important;background:rgba(255,255,255,.76)!important;box-shadow:0 6px 16px rgba(78,61,82,.035)!important}
+#life .interest-generated img{width:58px!important;height:58px!important;object-fit:contain!important;object-position:center!important;justify-self:center!important;display:block!important}
+#life .interest-generated img[src*="interest-photography"]{transform:scale(1.16)}
+#life .interest-generated img[src*="interest-travel"]{transform:scale(1.22)}
+#life .interest-generated img[src*="interest-tennis"]{transform:scale(1.20)}
+#life .interest-generated img[src*="interest-horse-riding"]{transform:scale(1.14)}
+#life .interest-generated img[src*="interest-painting"]{transform:scale(1.16)}
+#life .interest-copy h4{margin:0!important;font-size:13.5px!important;line-height:1.25!important}
+#life .generated-volunteer{min-height:106px!important;margin-top:8px!important}
+#life .generated-volunteer-art img{width:72px!important;height:72px!important;object-fit:contain!important}
+@media(max-width:720px){#life .generated-interests{grid-template-columns:1fr!important;gap:6px!important}#life .interest-generated{grid-template-columns:60px minmax(0,1fr)!important;min-height:76px!important;padding:6px 9px!important}#life .interest-generated img{width:54px!important;height:54px!important}#life .generated-volunteer{grid-template-columns:78px minmax(0,1fr)!important}#life .generated-volunteer-art img{width:60px!important;height:60px!important}}
 </style>
 </head>
 <body>
@@ -2399,7 +2281,7 @@ span[data-lang].show{display:inline}
 
       <div class="hero-facts" aria-label="Career highlights">
         <span>Tokyo, Japan</span>
-        <span><span data-lang="en">11+ years in accounting &amp; audit</span><span data-lang="ja">会計・監査11年以上</span><span data-lang="zh">會計・審計 11+ 年</span></span>
+        <span><span data-lang="en">11+ years in accounting &amp; audit</span><span data-lang="ja">会計・監査11年以上</span><span data-lang="zh">會計・審計 11 年以上</span></span>
         <span>PwC · IFRS</span>
         <span>Taiwan · China · Hong Kong · Japan</span>
       </div>
@@ -2595,9 +2477,9 @@ span[data-lang].show{display:inline}
       <div class="career-project-label star-only" aria-label="Key contribution"><span aria-hidden="true">★</span></div>
       <p><span data-lang="en">Sole local accountant for the Japan entity, responsible for accounting, tax coordination, banking and serving as the primary external accounting contact.</span><span data-lang="ja">日本法人の現地唯一の経理担当として、会計、税務調整、銀行業務および主要な対外会計窓口を担当。</span><span data-lang="zh">日本分公司在地唯一會計，負責帳務、稅務協調、銀行業務與主要對外會計窗口。</span></p>
     </div>
-    <div class="career-resp" data-lang="en"><ul><li>Monthly and annual closing; preparation of IFRS and GAAP financial statements and reporting materials.</li><li>Journal entries, expense reimbursements, tax filings, budgets and petty cash management.</li><li>Liaison with tax accountants, banks and government authorities, including document handling.</li></ul></div>
-    <div class="career-resp" data-lang="ja"><ul><li>月次・年次決算およびIFRS・GAAP財務諸表・報告資料の作成。</li><li>会計伝票、経費精算、税務申告、予算、小口現金管理。</li><li>税理士、銀行、官公庁との連絡・書類対応。</li></ul></div>
-    <div class="career-resp" data-lang="zh"><ul><li>月／年度結算及 IFRS及GAAP 財務報表與報告資料編製。</li><li>會計傳票、費用報銷、稅務申告、預算與零用金管理。</li><li>與稅理士、銀行及政府機關聯繫與文件處理。</li></ul></div>
+    <div class="career-resp" data-lang="en"><ul><li>Monthly and annual closing; preparation of IFRS and J-GAAP financial statements and reporting materials.</li><li>Journal entries, expense reimbursements, tax filings, budgets and petty cash management.</li><li>Liaison with tax accountants, banks and government authorities, including document handling.</li></ul></div>
+    <div class="career-resp" data-lang="ja"><ul><li>月次・年次決算およびIFRS・J-GAAP財務諸表・報告資料の作成。</li><li>会計伝票、経費精算、税務申告、予算、小口現金管理。</li><li>税理士、銀行、官公庁との連絡・書類対応。</li></ul></div>
+    <div class="career-resp" data-lang="zh"><ul><li>月／年度結算及 IFRS及J-GAAP 財務報表與報告資料編製。</li><li>會計傳票、費用報銷、稅務申告、預算與零用金管理。</li><li>與稅理士、銀行及政府機關聯繫與文件處理。</li></ul></div>
   </div>
 </article>
 <article class="career-entry">
@@ -2655,9 +2537,9 @@ span[data-lang].show{display:inline}
     </button>
   </div>
   <div class="career-detail" hidden>
-        <div class="career-resp" data-lang="en"><ul><li>Monthly and annual closing and preparation of IFRS and GAAP financial statements.</li><li>Vendor management, accounts payable, expense reimbursements, petty cash and budget management.</li><li>Monthly tax filings and capital increase project evaluation.</li><li>IT department support.</li></ul></div>
-    <div class="career-resp" data-lang="ja"><ul><li>月次・年次決算およびIFRS・GAAP財務諸表の作成。</li><li>取引先管理、買掛金、経費精算、小口現金、予算管理。</li><li>月次税務申告、増資プロジェクトの評価。</li><li>IT部門サポート。</li></ul></div>
-    <div class="career-resp" data-lang="zh"><ul><li>月／年度結算及 IFRS及GAAP財務報表編製。</li><li>供應商管理、應付款項、費用報銷、零用金與預算管理。</li><li>每月稅務申告，增資專案評估。</li><li>IT部門支援。</li></ul></div>
+        <div class="career-resp" data-lang="en"><ul><li>Monthly and annual closing and preparation of IFRS and J-GAAP financial statements.</li><li>Vendor management, accounts payable, expense reimbursements, petty cash and budget management.</li><li>Monthly tax filings and capital increase project evaluation.</li><li>IT department support.</li></ul></div>
+    <div class="career-resp" data-lang="ja"><ul><li>月次・年次決算およびIFRS・J-GAAP財務諸表の作成。</li><li>取引先管理、買掛金、経費精算、小口現金、予算管理。</li><li>月次税務申告、増資プロジェクトの評価。</li><li>IT部門サポート。</li></ul></div>
+    <div class="career-resp" data-lang="zh"><ul><li>月／年度結算及 IFRS及J-GAAP財務報表編製。</li><li>供應商管理、應付款項、費用報銷、零用金與預算管理。</li><li>每月稅務申告，增資專案評估。</li><li>IT部門支援。</li></ul></div>
   </div>
 </article>
 <article class="career-entry important">
@@ -2854,9 +2736,9 @@ span[data-lang].show{display:inline}
     </button>
   </div>
   <div class="career-detail" hidden>
-        <div class="career-resp" data-lang="en"><ul><li>Internal control evaluation.</li><li>IFRS / GAAP compliance review.</li><li>Compliance audit and risk assessment.</li><li>Audit reports and management recommendations.</li></ul></div>
-    <div class="career-resp" data-lang="ja"><ul><li>内部統制評価。</li><li>IFRS / GAAP準拠性確認。</li><li>コンプライアンス監査・リスク評価。</li><li>監査報告・改善提案。</li></ul></div>
-    <div class="career-resp" data-lang="zh"><ul><li>內部控制評估。</li><li>IFRS / GAAP 遵循確認。</li><li>法令遵循稽核與風險評估。</li><li>稽核報告與改善建議。</li></ul></div>
+        <div class="career-resp" data-lang="en"><ul><li>Internal control evaluation.</li><li>IFRS / J-GAAP compliance review.</li><li>Compliance audit and risk assessment.</li><li>Audit reports and management recommendations.</li></ul></div>
+    <div class="career-resp" data-lang="ja"><ul><li>内部統制評価。</li><li>IFRS / J-GAAP準拠性確認。</li><li>コンプライアンス監査・リスク評価。</li><li>監査報告・改善提案。</li></ul></div>
+    <div class="career-resp" data-lang="zh"><ul><li>內部控制評估。</li><li>IFRS / J-GAAP 遵循確認。</li><li>法令遵循稽核與風險評估。</li><li>稽核報告與改善建議。</li></ul></div>
   </div>
 </article>
 <article class="career-entry">
@@ -3183,23 +3065,23 @@ span[data-lang].show{display:inline}
     <div class="interest-copy"><h4><span data-lang="en">City Walking</span><span data-lang="ja">散歩・街歩き</span><span data-lang="zh">散步・城市漫遊</span></h4></div>
   </article>
   <article class="interest-generated">
-    <img src="assets/interest-photography.png?v=20260904b" alt="Photography illustration" loading="lazy">
+    <img src="assets/interest-photography.png?v=20260904c" alt="Photography illustration" loading="lazy">
     <div class="interest-copy"><h4><span data-lang="en">Photography</span><span data-lang="ja">写真</span><span data-lang="zh">攝影</span></h4></div>
   </article>
   <article class="interest-generated">
-    <img src="assets/interest-travel.png?v=20260904b" alt="Travel illustration" loading="lazy">
+    <img src="assets/interest-travel.png?v=20260904c" alt="Travel illustration" loading="lazy">
     <div class="interest-copy"><h4><span data-lang="en">Travel</span><span data-lang="ja">旅行</span><span data-lang="zh">旅行</span></h4></div>
   </article>
   <article class="interest-generated">
-    <img src="assets/interest-tennis.png?v=20260904b" alt="Tennis illustration" loading="lazy">
+    <img src="assets/interest-tennis.png?v=20260904c" alt="Tennis illustration" loading="lazy">
     <div class="interest-copy"><h4><span data-lang="en">Tennis</span><span data-lang="ja">テニス</span><span data-lang="zh">網球</span></h4></div>
   </article>
   <article class="interest-generated">
-    <img src="assets/interest-horse-riding.png?v=20260904b" alt="Horse riding illustration" loading="lazy">
+    <img src="assets/interest-horse-riding.png?v=20260904c" alt="Horse riding illustration" loading="lazy">
     <div class="interest-copy"><h4><span data-lang="en">Horse Riding</span><span data-lang="ja">乗馬</span><span data-lang="zh">騎馬</span></h4></div>
   </article>
   <article class="interest-generated">
-    <img src="assets/interest-painting.png?v=20260904b" alt="Painting illustration" loading="lazy">
+    <img src="assets/interest-painting.png?v=20260904c" alt="Painting illustration" loading="lazy">
     <div class="interest-copy"><h4><span data-lang="en">Painting</span><span data-lang="ja">絵画</span><span data-lang="zh">繪畫</span></h4></div>
   </article>
 </div>
@@ -3238,9 +3120,9 @@ span[data-lang].show{display:inline}
       <div class="now-next-panel">
         <div class="now-next-copy">
           <p>
-            <span data-lang="en">Based in Tokyo, I want to keep deepening my accounting expertise and create value in an environment that respects professional judgment, process improvement and cross-border collaboration.</span>
-            <span data-lang="ja">東京を拠点に会計の専門性をさらに深め、専門的な判断、業務改善、国際的な連携を大切にする環境で価値を生み出していきたいと考えています。</span>
-            <span data-lang="zh">目前以東京為據點，希望持續深化會計專業，並在尊重專業判斷、重視流程改善與跨國協作的環境中創造價值。</span>
+            <span data-lang="en">Based in Tokyo. Feel free to reach out regarding accounting, finance, or career opportunities.</span>
+            <span data-lang="ja">現在東京を拠点としております。経理・財務およびキャリアに関するご連絡をお待ちしております。</span>
+            <span data-lang="zh">目前以東京為據點，歡迎就會計、財務及相關職涯機會與我聯絡。</span>
           </p>
         </div>
 
