@@ -1,0 +1,68 @@
+name: Use generated interest images
+
+on:
+  push:
+    paths:
+      - .github/workflows/use-generated-interest-images.yml
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Link generated interest images
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('index.html')
+          text = path.read_text(encoding='utf-8')
+
+          images = {
+              'Photography': 'assets/interest-photography.png',
+              'Travel': 'assets/interest-travel.png',
+              'Tennis': 'assets/interest-tennis.png',
+              'Horse Riding': 'assets/interest-horse-riding.png',
+              'Painting': 'assets/interest-painting.png',
+          }
+
+          for title, src in images.items():
+              heading = f'<span data-lang="en">{title}</span>'
+              h = text.find(heading)
+              if h == -1:
+                  raise SystemExit(f'Heading not found: {title}')
+              article = text.rfind('<article class="interest-generated">', 0, h)
+              if article == -1:
+                  raise SystemExit(f'Article not found: {title}')
+              icon_start = text.find('<div class="interest-line-icon" aria-hidden="true">', article, h)
+              if icon_start == -1:
+                  raise SystemExit(f'Icon start not found: {title}')
+              icon_end = text.find('</div>', icon_start, h)
+              if icon_end == -1:
+                  raise SystemExit(f'Icon end not found: {title}')
+              icon_end += len('</div>')
+              replacement = f'<div class="interest-line-icon" aria-hidden="true"><img src="{src}" alt="" loading="lazy"></div>'
+              text = text[:icon_start] + replacement + text[icon_end:]
+
+          marker = '/* generated interest image assets */'
+          if marker not in text:
+              css = '''\n/* generated interest image assets */\n.interest-line-icon img{\n  width:100%;\n  height:100%;\n  object-fit:contain;\n  display:block;\n}\n'''
+              if '</style>' not in text:
+                  raise SystemExit('style closing tag not found')
+              text = text.replace('</style>', css + '\n</style>', 1)
+
+          path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Commit update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git rm .github/workflows/use-generated-interest-images.yml
+          git commit -m "Use generated images for interest icons"
+          git push
