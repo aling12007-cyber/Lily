@@ -1,0 +1,77 @@
+name: Restore missing interests
+
+on:
+  push:
+    paths:
+      - .github/workflows/restore-missing-interests.yml
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore missing interest cards
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('index.html')
+          text = path.read_text(encoding='utf-8')
+
+          marker = '<span data-lang="en">Painting</span>'
+          pos = text.find(marker)
+          if pos == -1:
+              raise SystemExit('Painting card not found')
+          insert_at = text.rfind('<article class="interest-generated">', 0, pos)
+          if insert_at == -1:
+              raise SystemExit('Painting article start not found')
+
+          cards = '''  <article class="interest-generated">
+    <div class="interest-line-icon" aria-hidden="true">
+      <svg viewBox="0 0 72 72" role="img" aria-label="Photography"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M14 25h10l5-6h14l5 6h10a6 6 0 0 1 6 6v24a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V31a6 6 0 0 1 6-6Z" stroke="#a77f9d" stroke-width="2"/><rect x="18" y="20" width="10" height="5" rx="2" stroke="#a77f9d" stroke-width="1.7"/><circle cx="36" cy="43" r="13" stroke="#a77f9d" stroke-width="2"/><circle cx="36" cy="43" r="8" stroke="#a8a2d7" stroke-width="2"/><path d="M31 40c2-3 4-4 7-4" stroke="#d7a8bf" stroke-width="1.8"/><circle cx="41" cy="39" r="1.5" stroke="#a8a2d7" stroke-width="1.4"/><path d="M13 15l4 4m0-4-4 4" stroke="#a8a2d7" stroke-width="1.6"/><path d="M57 13l1.8 3.6L62 18l-3.2 1.4L57 23l-1.8-3.6L52 18l3.2-1.4Z" stroke="#b99361" stroke-width="1.5"/></g></svg>
+    </div>
+    <div class="interest-copy"><h4><span data-lang="en">Photography</span><span data-lang="ja">写真</span><span data-lang="zh">攝影</span></h4></div>
+  </article>
+
+  <article class="interest-generated">
+    <div class="interest-line-icon" aria-hidden="true">
+      <svg viewBox="0 0 72 72" role="img" aria-label="Travel"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M13 40c10-2 19-5 28-9l12-17c1.6-2.2 4.8-2.6 7-1.2l-6 20 10 6c2.2 1.4 2 4.7-.4 5.7l-12-1.8-10 13c-1.4 2-4.7 1.5-5.3-.9l2-14c-9 2.5-17 3.6-25 3.8Z" stroke="#a77f9d" stroke-width="2"/><path d="M12 51c7 5 16 7 26 7" stroke="#a8a2d7" stroke-width="1.7" stroke-dasharray="3 4"/><path d="M15 16l3 3m0-3-3 3" stroke="#a8a2d7" stroke-width="1.6"/><path d="M56 52l1.6 3.3L61 57l-3.4 1.7L56 62l-1.6-3.3L51 57l3.4-1.7Z" stroke="#b99361" stroke-width="1.5"/></g></svg>
+    </div>
+    <div class="interest-copy"><h4><span data-lang="en">Travel</span><span data-lang="ja">旅行</span><span data-lang="zh">旅行</span></h4></div>
+  </article>
+
+  <article class="interest-generated">
+    <div class="interest-line-icon" aria-hidden="true">
+      <svg viewBox="0 0 72 72" role="img" aria-label="Tennis"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="29" cy="28" rx="14" ry="18" transform="rotate(35 29 28)" stroke="#a77f9d" stroke-width="2"/><path d="M38 42l14 18M49 55l-5 4" stroke="#b99361" stroke-width="2.2"/><path d="M20 18l20 16M17 25l20 15M25 12l-8 30M32 11l-9 34" stroke="#a8a2d7" stroke-width="1" opacity=".9"/><circle cx="52" cy="20" r="7" stroke="#a77f9d" stroke-width="1.8"/><path d="M47 17c3 1 4 3 5 6M57 17c-3 1-4 3-5 6" stroke="#d7a8bf" stroke-width="1.4"/><path d="M56 9l1.3 2.7L60 13l-2.7 1.3L56 17l-1.3-2.7L52 13l2.7-1.3Z" stroke="#b99361" stroke-width="1.4"/></g></svg>
+    </div>
+    <div class="interest-copy"><h4><span data-lang="en">Tennis</span><span data-lang="ja">テニス</span><span data-lang="zh">網球</span></h4></div>
+  </article>
+
+  <article class="interest-generated">
+    <div class="interest-line-icon" aria-hidden="true">
+      <svg viewBox="0 0 72 72" role="img" aria-label="Horse Riding"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 55c4-10 4-19 1-27 5-7 11-12 19-15l5 6 7 2-4 7 5 8-6 6-8-2-5 8c-3 5-7 8-14 7Z" stroke="#a77f9d" stroke-width="2"/><path d="M24 27c7 2 13 1 19-3M23 35c8 2 14 1 20-2" stroke="#a8a2d7" stroke-width="1.6"/><path d="M42 20l-1-7 6 5M48 23l5-5" stroke="#b99361" stroke-width="1.6"/><path d="M41 24l7 6-5 9M47 30l6 2" stroke="#a77f9d" stroke-width="1.6"/><circle cx="48" cy="30" r="2" stroke="#b99361" stroke-width="1.5"/><circle cx="43" cy="39" r="2" stroke="#b99361" stroke-width="1.5"/><path d="M18 39v12M18 51c-3 0-5 2-5 5v5h10v-5c0-3-2-5-5-5Z" stroke="#b99361" stroke-width="1.7"/><path d="M12 16h6m-3-3v6" stroke="#d7a8bf" stroke-width="1.5"/></g></svg>
+    </div>
+    <div class="interest-copy"><h4><span data-lang="en">Horse Riding</span><span data-lang="ja">乗馬</span><span data-lang="zh">騎馬</span></h4></div>
+  </article>
+
+'''
+
+          missing = [x for x in ['Photography','Travel','Tennis','Horse Riding'] if f'<span data-lang="en">{x}</span>' not in text]
+          if not missing:
+              raise SystemExit('No missing interest cards')
+          text = text[:insert_at] + cards + text[insert_at:]
+          path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Commit update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git rm .github/workflows/restore-missing-interests.yml
+          git commit -m "Restore missing Life Beyond Work interests"
+          git push
